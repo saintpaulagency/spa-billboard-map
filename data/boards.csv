@@ -1,0 +1,162 @@
+unit_id,operator,board_code,location,city_state,zip,latitude,longitude
+50459004,Outfront Media US,DBP-MIN17,"Eastbound I94, SW ramp @ Hwy 19","Albertville, MN",55301,45.239801,-93.660903
+463911,Outfront Media US,DBP-MIN16,Eastbound ramp onto I94 @ Hwy 19,"Albertville, MN",55301,45.23979,-93.66088
+MN0000411,Lamar,com.lamar:157.000103,Viking Trail & Nokomis Street,"Alexandria, MN",56308,45.889194,-95.36637
+30876262,Clear Channel Outdoor,MSP091345,610/10 northbound west of Hwy 65,"Blaine, MN",55434,45.13576,-93.238872
+30851941,Outfront Media US,DBP-MIN10,Northbound 610 East of Hwy 65,"Blaine, MN",55449,45.132024,-93.225802
+50264587,Clear Channel Outdoor,MSP091346,Northbound 610 west of Hwy 65,"Blaine, MN",55434,45.13576,-93.238872
+IDIG-IDRGBBTHWF,Blip Billboards,MN-11681,NE corner of Hwy 610 & 65,"Blaine, MN",55449,45.1337,-93.2312
+IDIG-IDRGBHWY10STCEF,Blip Billboards,MN-06112,"Northbound 610 at Hwy 65, NE corner","Blaine, MN",55449,45.1337,-93.2312
+30453894,Outfront Media US,DBP-MIN21,Southbound 35W between Lake Dr. & Radisson,"Blaine, MN",55449,45.136792,-93.189343
+15043746,Outfront Media US,DBP-MIN09,Northbound 610 east of Hwy 65,"Blaine, MN",55449,45.132014,-93.225772
+IDIG-IDRGBLFNF,Outfront Media US,DBP-MIN11,35W southbound at Co Rd. J,"Blaine, MN",55449,45.124744,-93.189411
+14921028,Outfront Media US,DBP-MIN12,Southbound 35W @ Co Rd. J,"Blaine, MN",55449,45.124776,-93.189414
+30473007,Clear Channel Outdoor,MSP090124,Westbound 494 east of Hwy 77,"Bloomington, MN",55450,44.862837,-93.240237
+30585187,Clear Channel Outdoor,MSP090123,Northside of 494 between 24th & Hwy 77,"Bloomington, MN",55450,44.862837,-93.240237
+3bef72e3-cc33-4cbd-aeb7-64acc52954bd,Clear Channel Outdoor,MSP090180,Southbound 35W North of Hwy 13,"Burnsville, MN",55337,44.78996,-93.289381
+514594,Clear Channel Outdoor,MSP090171,Southbound 35W North of Hwy 13,"Burnsville, MN",55337,44.778652,-93.289292
+15043876,IBOUSA,IDIG-IDRGBCLWTRWF,Northbound I94 south of Hwy 24,"Clearwater, MN",55320,45.407641,-94.04797
+MN0000111,IBOUSA,IDIG-IDRGBCLWTREF,Westbound I94 south of Hwy 24,"Clearwater, MN",55320,45.407641,-94.04797
+IDIG-IDRGBLF1SF,Outfront Media US,DBP-MIN13,,"Columbus, MN",55038,45.212265,-93.029965
+MN0000177,Outfront Media US,DBP-MIN27,Northbound I94 south of Dayton Pkwy,"Dayton, MN",55369,45.154787,-93.507275
+30972552,Outfront Media US,DBP-MIN26,Westbound I94 south of Dayton Parkway,"Dayton, MN",55369,45.154787,-93.507275
+FRA-17A,Outfront Media US,DBP-MIN20,SW corner of I494 & Hwy 55,"Eagan, MN",55121,44.861036,-93.150146
+MNMN-2001,Outfront Media US,DBP-MIN04,Southbound 35E at 55 south of 494,"Eagan, MN",55121,44.858755,-93.146891
+MN0000410,Clear Channel Outdoor,MSP090083,Between Hwy 13 & Pilot Knob on Southside of 494,"Eagan, MN",55121,44.860569,-93.170867
+15043720,Clear Channel Outdoor,MSP090082,Between Hwy 13 & Pilot Knob on Southside of 494,"Eagan, MN",55121,44.860571,-93.170819
+15043719,Clear Channel Outdoor,MSP007080,Northbound Hwy 77 North of Hwy 13,"Eagan, MN",55122,44.821349,-93.223618
+MN0000409,Clear Channel Outdoor,MSP007085,Northbound Hwy 77 North of Hwy 13,"Eagan, MN",55122,44.821328,-93.223591
+30473007,Clear Channel Outdoor,MSP090124,Westbound 494 east of Hwy 77,"Bloomington, MN",55330,44.862837,-93.240237
+30585187,Clear Channel Outdoor,MSP090123,Northside of 494 between 24th & Hwy 77,"Bloomington, MN",55330,44.862837,-93.240237
+MN0000194,Outfront Media US,DBP-MIN22,Northbound Hwy 169 north of Hwy 10/101,"Elk River, MN",55330,45.297403,-93.551958
+463910,Apparatix,FRA-FRANKLIN-OUTDOOR-318B-RHR,Northbound Hwy 10 @ Proctor,"Elk River, MN",55330,45.30772,-93.57696
+MN0000398,Apparatix,FRA-324A,Southbound 169 north of Hwy 10,"Elk River, MN",55330,45.29947,-93.55377
+50469155,Apparatix,FRA-318B,Southbound Hwy 10 at Waco St.,"Elk River, MN",55330,45.30614,-93.62741
+30569623,Apparatix,FRA-FRANKLIN-OUTDOOR-324B-RHR,,"Elk River, MN",55330,45.29947,-93.55377
+619062,Apparatix,FRA-324B,Southbound 169 north of Hwy 10,"Elk River, MN",55330,45.29947,-93.55377
+95ee72b3-347b-4794-95f8-d18452e281de,Outfront Media US,DBP-MIN14,Southbound 35E at 35W/35E split,"Forest Lake, MN",55038,45.212299,-93.029967
+IDIG-IDRGBCLWTRWF,Apparatix,NOR-1001-RHR,NE corner of I35 & 11th Av.,"Forest Lake, MN",55025,45.26963,-93.00736
+MN0000180,Apparatix,NOR-1002-LHR,Northbound 35W south of 11th Ave. SW,"Forest Lake, MN",55025,45.26963,-93.00736
+30818586,Blip Billboards,MN-15984,Between E. River & University Southside of 694,"Fridley, MN",55421,45.066742,-93.272668
+IDIG-IDRGBBTHEF,Blip Billboards,MN-10029,Between E. River & University Southside of 694,"Fridley, MN",55421,45.066742,-93.272668
+FRA-FRANKLIN-OUTDOOR-11B-RHR,Blip Billboards,MN-10687,Hwy 61 @ 55,"Hastings, MN",55033,44.735333,-92.85193
+MN0000501,Outfront Media US,DBP-MIN29,NE corner of I494 & Hwy 52,"Inver Grove Heights, MN",55076,44.875569,-93.055798
+15043738,Outfront Media US,DBP-MIN05,Southbound 52 south of 52/55 merger,"Inver Grove Heights, MN",55077,44.795449,-93.038529
+IDIG-IDRGBSSTCSF,Outfront Media US,DBP-MIN30,NE corner of I494 & Hwy 52,"Inver Grove Heights, MN",55076,44.875556,-93.055841
+MNMN-2002,Outfront Media US,DBP-MIN06,Southbound 52 North of exit for Pilot Travel Center,"Inver Grove Heights, MN",55077,44.795429,-93.038515
+FRA-FRANKLIN-OUTDOOR-324A-LHR,Clear Channel Outdoor,MSP093056,Hwy 94 & Old Hudson Rd. east of dwntn,"Maplewood, MN",55119,44.952015,-93.024006
+MN0000502,Clear Channel Outdoor,MSP093041,I94 westbound just east of Century Ave.,"Maplewood, MN",55128,44.948976,-92.979792
+15044005,Clear Channel Outdoor,MSP092884,Westbound Hwy 36 west of White Bear Ave.,"Maplewood, MN",55109,45.012067,-93.025186
+30441695,Clear Channel Outdoor,MSP093075,Southbound 494 south of Century Ave. & Lake St.,"Maplewood, MN",55119,44.911615,-92.985253
+IDIG-IDRGBHWY23NF,Clear Channel Outdoor,MSP092881,NW corner of Hwy 36 & White Bear Ave.,"Maplewood, MN",55109,45.012071,-93.025183
+IDIG-IDRGBPRINSF,Clear Channel Outdoor,MSP090132,"At entrance to Terminal 1, southbound on Hwy 5","Mendota Heights, MN",55111,44.874503,-93.19626
+MN0000400,Clear Channel Outdoor,MSP092011,Hennepin Ave. & 7th Street,"Minneapolis, MN",55403,44.977982,-93.275168
+MN0000408,Clear Channel Outdoor,MSP005001,Hennepin between 6th & 7th dwntn,"Minneapolis, MN",55403,44.978537,-93.274251
+IDIG-IDRGBVHNF,Clear Channel Outdoor,MSP091910,Hennepin Ave. & 7th Street,"Minneapolis, MN",55403,44.97819,-93.27489
+7401338,Clear Channel Outdoor,MSP090127,NW corner of Hwy 494 & 34th Ave. S.,"Minneapolis, MN",55450,44.862818,-93.226306
+FRA-70B,Clear Channel Outdoor,MSP092010,"SW corner of Hennepin and 7th, dwntn","Minneapolis, MN",55403,44.9778,-93.27544
+30776283,Clear Channel Outdoor,MSP092460,Northbound 35W at Lake Street,"Minneapolis, MN",55408,44.948201,-93.273904
+MN0000407,Clear Channel Outdoor,MSP091910,Hennepin Ave. & 7th Street,"Minneapolis, MN",55403,44.978191,-93.275479
+IDIG-IDRGBVHSF,Clear Channel Outdoor,MSP007270,SW corner of US Bank Stadium,"Minneapolis, MN",55415,44.972889,-93.260099
+597990,Clear Channel Outdoor,MSP091785,SW corner of Hennepin & 9th,"Minneapolis, MN",55403,44.976432,-93.277305
+FRA-383B,Outfront Media US,DBP-MIN15,35W Southbound at Hennepin Ave.,"Minneapolis, MN",55413,44.991774,-93.237327
+FRA-FRANKLIN-OUTDOOR-17A-LHR,Clear Channel Outdoor,MSP091460,Northbound I94 northeast corner of Broadway,"Minneapolis, MN",55411,45.000133,-93.281538
+15043387,Clear Channel Outdoor,MSP091906,Dwntwn 6th st between 1st Ave & Hennepin,"Minneapolis, MN",55403,44.979229,-93.274578
+MN0000263,Clear Channel Outdoor,MSP092233,35W northbound at Stinson,"Minneapolis, MN",55413,45.000562,-93.226464
+30709086,Clear Channel Outdoor,MSP092400,I94 @ 35W southbound,"Minneapolis, MN",55404,44.964927,-93.270396
+15043807,Clear Channel Outdoor,MSP091915,Southwest corner of Hennepin & 6th Street dwntwn,"Minneapolis, MN",55403,44.978798,-93.273945
+MN0000404,Clear Channel Outdoor,MSP091462,Northeast corner of Washington Ave. & Broadway,"Minneapolis, MN",55411,45.000069,-93.281524
+30973126,Clear Channel Outdoor,MSP005002,On Hennepin between 6th & 7th,"Minneapolis, MN",55403,44.978537,-93.274251
+30886286,Clear Channel Outdoor,MSP092234,,"Minneapolis, MN",55413,45.000564,-93.226504
+IDIG-IDRGBLFSF,Clear Channel Outdoor,MSP007290,SW corner of US Bank Stadium dwntn,"Minneapolis, MN",55415,44.972984,-93.260448
+FRA-FRANKLIN-OUTDOOR-318B-RHR,Clear Channel Outdoor,MSP091452,4th & Plymounth NW of dwntn,"Minneapolis, MN",55411,44.992129,-93.283434
+NOR-1001-RHR,Clear Channel Outdoor,MSP092360,,"Minneapolis, MN",55404,44.966415,-93.262773
+IDIG-IDRGBRICESF,Clear Channel Outdoor,MSP092244,Northbound 35W NE corner N of Hennepin,"Minneapolis, MN",55414,44.993394,-93.236922
+463934,Clear Channel Outdoor,MSP091455,Hwy 94 & Washington Ave N.,"Minneapolis-St. Paul, MN",55412,45.02768,-93.285752
+MN0000156,Clear Channel Outdoor,MSP092450,S of dwntn 35W south of 28th St.,"Minneapolis-St. Paul, MN",55408,44.950684,-93.27494
+15043984,Clear Channel Outdoor,MSP007010,Hwy 7 & 101,"Minnetonka, MN",55345,44.914037,-93.500851
+MN0000403,Clear Channel Outdoor,MSP091145,Hwy 394 westbound between 169 & 494,"Minnetonka, MN",55305,44.971571,-93.436283
+IDIG-IDRGBRGRSWF,Clear Channel Outdoor,MSP091125,Hwy 394 westbound between Shelard Pkwy & Hopkins Crossroads,"Minnetonka, MN",55305,44.97333,-93.413183
+MN0000124,Clear Channel Outdoor,MSP090521,Northbound 494 N of Hwy 62,"Minnetonka, MN",55343,44.899612,-93.445287
+14921379,Clear Channel Outdoor,MSP007015,SE corner of Hwy 101 & 7,"Minnetonka, MN",55345,44.914025,-93.5009
+30818585,Clear Channel Outdoor,MSP091153,Westbound 394 between Plymouth and I494,"Minnetonka, MN",55305,44.971593,-93.450356
+IDIG-IDRGBSTANF,Clear Channel Outdoor,MSP090520,Northbound 494 N of Hwy 62,"Minnetonka, MN",55343,44.899544,-93.445214
+MN0000393,Clear Channel Outdoor,MSP091152,Westbound 394 between Plymouth and I494,"Minnetonka, MN",55305,44.971595,-93.450396
+15043782,Lamar,com.lamar:157.000109,Eastbound I94 south of Hwy 25,"Monticello, MN",55362,45.29644,-93.79081
+15043818,Clear Channel Outdoor,MSP092796,Southbound 35E ramp to 610west,"Mounds View, MN",55112,45.118881,-93.189136
+IDIG-2057-VD-NF,Clear Channel Outdoor,MSP092793,Southbound 35W at Co Rd. H ramp,"Mounds View, MN",55112,45.098639,-93.189206
+IDIG-IDRGBBRNDSF,Clear Channel Outdoor,MSP092795,Southbound 35W exit to Hwy 10 Westbound,"Mounds View, MN",55112,45.118834,-93.189152
+15042658,Outfront Media US,DBP-MIN31,Southbound 35W between Co Rd. E2 & Hwy 88,"New Brighton, MN",55112,45.047182,-93.189842
+MN0000110,Outfront Media US,DBP-MIN08,Southbound 35W between Co Rd. E2 & Hwy 88,"New Brighton, MN",55112,45.043078,-93.189905
+4dbc8e7e-97c1-4545-9ce5-9d9b2d5951ee,Clear Channel Outdoor,MSP092792,Eastbound 694 @ 35W south ramp,"New Brighton, MN",55112,45.06637,-93.19003
+MN0000208,Clear Channel Outdoor,MSP092791,694 East @ 35 W ramp,"New Brighton, MN",55112,45.06637,-93.19003
+MN0000207,Outfront Media US,DBP-MIN07,Southbound 35 W at Hwy 88,"New Brighton, MN",55112,45.043101,-93.189897
+15043862,Blip Billboards,MN-40485,Hwy 61 southbound of Hwy 494,"Newport, MN",55055,44.866853,-92.999769
+15043875,Blip Billboards,MN-40486,Southbound Hwy 61/10 south of 694,"Newport, MN",55055,44.866853,-92.999769
+MN0000406,Clear Channel Outdoor,MSP093040,I94 westbound at Century Ave.(120),"Oakdale, MN",55128,44.948974,-92.979851
+IDIG-IDRGBPEQSF,Outfront Media US,DBP-MIN34,Hwy 169 & 36th Ave.,"Plymouth, MN",55441,45.019628,-93.401416
+15519163,Outfront Media US,DBP-MIN33,Hwy 169 Southbound S. of 36th Ave.,"Plymouth, MN",55441,45.019606,-93.401411
+d996c221-999d-4125-9ee6-3988e63e2848,Clear Channel Outdoor,MSP091216,Northbound 494 at Hwy 55,"Plymouth, MN",55441,45.005813,-93.456678
+IDIG-IDRGBZIMSF,Clear Channel Outdoor,MSP035990,Southbound 169 south of Bass Lake Rd.,"Plymouth, MN",55442,45.053014,-93.401406
+MN0000397,Clear Channel Outdoor,MSP091217,Northbound 494 @ Hwy 55,"Plymouth, MN",55441,45.005769,-93.456673
+514461,Clear Channel Outdoor,MSP036020,Southbound 169 south of Bass Lake Rd.,"Plymouth, MN",55442,45.053031,-93.401411
+15043739,IBOUSA,IDIG-IDRGBPRINSF,Northbound Hwy 169 south of 95,"Princeton, MN",55371,45.574326,-93.598275
+MN0000344,Outfront Media US,DBP-MIN24,Hwy 77 Northbound at Cargo Rd.,"Richfield, MN",55450,44.875229,-93.246335
+15043825,Outfront Media US,DBP-MIN25,Northbound Hwy 77 between 494 & 62,"Richfield, MN",55450,44.87526,-93.246323
+15043784,Clear Channel Outdoor,MSP091232,Hwy 94 south of Rogers,"Rogers, MN",55374,45.179715,-93.533065
+15473373,Outfront Media US,DBP-MIN01,Southbound I94 south of 101/94,"Rogers, MN",55374,45.188538,-93.543794
+463924,IBOUSA,IDIG-IDRGBRGRSWF,Eastbound I94 north of 101,"Rogers, MN",55374,45.200089,-93.565986
+MN0000342,Outfront Media US,DBP-MIN18,I94 north of Hwy 101,"Rogers, MN",55374,45.200847,-93.565269
+IDIG-IDRGBLFNF1,Outfront Media US,DBP-MIN18,I94 north of Hwy 101,"Rogers, MN",55374,45.200882,-93.565316
+FRA-21B,Clear Channel Outdoor,MSP091222,Westbound I94 south of 141st Ave.,"Rogers, MN",55374,45.206813,-93.576471
+30609453,Clear Channel Outdoor,MSP061870,I 94 eastbound ramp at Lexington,"Shoreview, MN",55126,45.058164,-93.142726
+50264588,Clear Channel Outdoor,MSP092825,Eastbound 694 between victoria & Rice,"Shoreview, MN",55126,45.051954,-93.118798
+15043965,Clear Channel Outdoor,MSP061840,694 Eastbound ramp at Lexington,"Shoreview, MN",55126,45.058157,-93.142704
+MN0000125,Outfront Media US,DBP-MIN02,SW corner of 610 & Hwy 65,"Spring Lk Park, MN",55432,45.118308,-93.240039
+15043660,Outfront Media US,DBP-MIN03,SW ramp at Hwy 10 & 65 southbound,"Spring Lk Park, MN",55432,45.118328,-93.240019
+IDIG-2057-VD-SF,Lamar,com.lamar:157.000108,Southeast corner of Hwy 7 & Main St.,"St. Bonifacius, MN",55375,44.90159,-93.74644
+FRA-FRANKLIN-OUTDOOR-70B-RHR,IBOUSA,IDIG-IDRGBDIVWF,Hwy 23 east of Hwy 15,"St. Cloud, MN",56301,45.553046,-94.194803
+15043659,IBOUSA,IDIG-IDRGBMACWF1,Veterans Drive,"St. Cloud, MN",56303,45.568319,-94.220394
+FRA-FRANKLIN-OUTDOOR-19B-RHR,IBOUSA,IDIG-IDRGBBTHWF,Hwy 15 & 2nd Street,"St. Cloud, MN",56301,45.549341,-94.206905
+FRA-FRANKLIN-OUTDOOR-383B-RHR,IBOUSA,IDIG-IDRGBHWY10STCEF,US 10,"St. Cloud, MN",56304,45.555516,-94.126651
+FRA-FRANKLIN-OUTDOOR-21B-RHR,Apparatix,FRA-17A,Veterans Drive and 54th Ave.,"St. Cloud, MN",56303,45.56807,-94.22615
+549209,IBOUSA,IDIG-IDRGBBTHEF,Hwy 23 & 15,"St. Cloud, MN",56301,45.549341,-94.206905
+MN0000401,IBOUSA,IDIG-IDRGBSSTCSF,Northbound Hwy 75 N of I94,"St. Cloud, MN",56301,45.506387,-94.155248
+MN0000394,Apparatix,FRA-19B,Division Street & Hwy 15,"St. Cloud, MN",56301,45.55303,-94.20368
+IDIG-IDRGBHWY10STCWF,IBOUSA,IDIG-IDRGBHWY23NF,Southeast corner of Hwy 10 & 23,"St. Cloud, MN",56304,45.566391,-94.13614
+15043142,Lamar,com.lamar:157.000102,Westbound on Hwy 23 @ 33rd Av.,"St. Cloud, MN",56303,45.55363,-94.198044
+15042659,Apparatix,FRA-70B,Northbound Hwy 15 North of I94,"St. Cloud, MN",56301,45.522254,-94.221985
+IDIG-IDRGBBRNDNF,Apparatix,FRA-FRANKLIN-OUTDOOR-17A-LHR,Veterans & 54th Ave.,"St. Cloud, MN",56303,45.56839,-94.22585
+IDIG-IDRGBSTJEF,Lamar,com.lamar:157.000107,Division Street west of Hwy 15,"St. Cloud, MN",56301,45.55315,-94.210365
+30920696,Lamar,com.lamar:157.000105,Northbound 23 ramp at Hwy 10,"St. Cloud, MN",56304,45.5646,-94.1425
+30886285,IBOUSA,IDIG-IDRGBSTANF,Southbound 75 south of I94,"St. Cloud, MN",56301,45.488175,-94.15404
+15043863,IBOUSA,IDIG-2057-VD-NF,NW corner Hwy 75 & I94,"St. Cloud, MN",56301,45.495239,-94.150683
+15043394,Apparatix,FRA-21B,,"St. Cloud, MN",56301,45.55322,-94.18758
+FRA-11B,Apparatix,FRA-FRANKLIN-OUTDOOR-21B-RHR,,"St. Cloud, MN",,45.55325,-94.18726
+IDIG-IDRGBSTJWF,IBOUSA,IDIG-IDRGBHWY10STCWF,,"St. Cloud, MN",56304,45.555516,-94.126651
+30973127,Apparatix,FRA-11B,,"St. Cloud, MN",56374,45.5608,-94.27645
+15043775,Lamar,com.lamar:157.000106,,"St. Cloud, MN",56301,45.55315,-94.210365
+463923,IBOUSA,IDIG-IDRGBDIVEF,,"St. Cloud, MN",56301,45.553046,-94.194803
+IDIG-IDRGRICEVTNF,Lamar,com.lamar:157.000110,,"St. Cloud, MN",56301,45.55944,-94.15686
+IDIG-IDRGBBR2NF,Lamar,com.lamar:157.000101,,"St. Cloud, MN",56303,45.55363,-94.198044
+514462,IBOUSA,IDIG-IDRGBMACEF,,"St. Cloud, MN",56303,45.568319,-94.220394
+15043874,Clear Channel Outdoor,MSP092921,35E & University Ave. north of dwntn,"St. Paul, MN",55130,44.958469,-93.089709
+IDIG-IDRGBDIVEF,Clear Channel Outdoor,MSP005101,Corner of 6th & Wabasha dwntn,"St. Paul, MN",55101,44.9466,-93.095246
+88fba644-5cf1-46f7-8364-27092f468891,Clear Channel Outdoor,MSP092917,Northbound 35E off Mississippi & Phalen Blvd.,"St. Paul, MN",55130,44.96022,-93.08947
+MN0000179,Clear Channel Outdoor,MSP005102,NE corner of Wabasha & 6th dwntn,"St. Paul, MN",55101,44.9466,-93.095246
+MN0000402,IBOUSA,IDIG-2057-VD-SF,,"St. Cloud, MN",56301,45.495239,-94.150683
+80bd8315-7dda-4726-b84c-1d43798de038,Clear Channel Outdoor,MSP092870,35W Northbound of Co. Rd. E,"Vadnais Heights, MN",55110,45.059548,-93.055955
+463903,IBOUSA,IDIG-IDRGBVHNF,Northbound 35E between 694 & Co. Rd. E,"Vadnais Heights, MN",55110,45.044172,-93.060167
+463906,IBOUSA,IDIG-IDRGBVHSF,Northbound 35E Between 694 & Co Rd. E,"Vadnais Heights, MN",55110,45.044172,-93.060167
+463904,Clear Channel Outdoor,MSP092861,Eastbound 694 @35E North,"Vadnais Heights, MN",55117,45.036432,-93.068082
+50526611,Outfront Media US,DBP-MIN19,Northbound 35E between co Rd. E 7 Hwy 96,"Vadnais Heights, MN",55110,45.06326,-93.05525
+30439920,Clear Channel Outdoor,MSP092874,694 eastbound at 35E North,"Vadnais Heights, MN",55117,45.036417,-93.068117
+14921027,Outfront Media US,DBP-MIN28,Eastbound on 694 @ Rice Street,"Vadnais Hts, MN",55126,45.043412,-93.105223
+30473006,Clear Channel Outdoor,MSP093186,Hwy 52 southbound of Wentworth Ave.,"W. St. Paul, MN",55118,44.89482,-93.066889
+FRA-FRANKLIN-OUTDOOR-324B-RHR,Clear Channel Outdoor,MSP093185,Southbound Hwy 52 south exit from Wentworth,"W. St. Paul, MN",55118,44.89482,-93.066889
+7401335,Outfront Media US,MSP093185,Southbound Hwy 52 south exit from Wentworth,"White Bear Lake, MN",55127,45.08219,-93.05349
+IDIG-IDRGBMACEF,Outfront Media US,DBP-MIN36,Southbound 35E North of Hwy 96,"White Bear Lake, MN",55127,45.08219,-93.05349
+597989,Clear Channel Outdoor,MSP092806,Northbound I35E north of Hwy 96,"White Bear Lake, MN",55110,45.093633,-93.051474
+15043867,Clear Channel Outdoor,MSP092805,Northbound 35E N of Hwy 96 S of Co Rd. H2,"White Bear Lake, MN",55110,45.093677,-93.051488
+MN0000262,IBOUSA,IDIG-IDRGBZIMSF,Southbound 169 south of co Rd. 4,"Zimmerman, MN",55398,45.436461,-93.581141
+FRA-324B,IBOUSA,IDIG-IDRGBZIMNF,Southbound 169 south of Co Rd. 4,"Zimmerman, MN",55398,45.436461,-93.581141

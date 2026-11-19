@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Billboard Map · Saint Paul Agency</title>
+<meta name="description" content="Interactive map of digital billboard locations, prepared by Saint Paul Agency.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/spa-logo.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.css">
+<style>
+@font-face { font-family: Poppins; font-weight: 400; font-display: swap; src: url(assets/fonts/poppins-latin-400-normal.woff2) format('woff2'); }
+@font-face { font-family: Poppins; font-weight: 500; font-display: swap; src: url(assets/fonts/poppins-latin-500-normal.woff2) format('woff2'); }
+@font-face { font-family: Poppins; font-weight: 600; font-display: swap; src: url(assets/fonts/poppins-latin-600-normal.woff2) format('woff2'); }
+@font-face { font-family: Poppins; font-weight: 700; font-display: swap; src: url(assets/fonts/poppins-latin-700-normal.woff2) format('woff2'); }
+:root {
+  --navy: #0E1830; --royal: #233975; --pin: #1F6FD8; --pin-dark: #123F86; --sky: #5EA6F3;
+  --ink: #0E1830; --ink-2: #263250; --line: #D5DDEA; --card: #FFFFFF; --card-2: #F3F6FB;
+  --shadow: 0 2px 4px rgba(14, 24, 48, .08), 0 10px 30px rgba(14, 24, 48, .16);
+  --font: Poppins, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: #E8EDF4; color: var(--ink); font-family: var(--font); -webkit-text-size-adjust: 100%; }
+#map { position: fixed; inset: 0; z-index: 0; background: #E8EDF4; }
+button, input { font: inherit; color: inherit; }
+a { color: var(--royal); }
+
+/* ---------- branded panel ---------- */
+.panel { position: absolute; z-index: 500; top: 16px; left: 16px; width: 352px; max-height: calc(100% - 32px); overflow: auto;
+  background: var(--card); border-radius: 16px; box-shadow: var(--shadow); border-left: 6px solid var(--royal); }
+.p-head { display: flex; gap: 12px; align-items: center; padding: 16px 16px 12px 16px; }
+.p-head img { width: 48px; height: 48px; flex: none; }
+.p-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--royal); line-height: 1.3; }
+.p-title { margin: 0; font-size: 20px; font-weight: 700; line-height: 1.2; color: var(--navy); }
+.p-sub { font-size: 13px; color: var(--ink-2); line-height: 1.4; margin-top: 2px; }
+.p-toggle { display: none; margin-left: auto; flex: none; border: 1px solid var(--line); background: var(--card-2); border-radius: 10px; padding: 6px 10px; font-size: 13px; font-weight: 600; cursor: pointer; }
+.p-body { padding: 0 16px 16px 16px; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+.stat { background: var(--card-2); border-radius: 12px; padding: 8px 10px; }
+.stat b { display: block; font-size: 22px; line-height: 1.15; font-weight: 700; color: var(--navy); }
+.stat span { font-size: 12px; color: var(--ink-2); line-height: 1.3; }
+.label { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); margin: 0 0 6px 0; }
+.views { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.views button { border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 6px 12px; font-size: 14px; font-weight: 600; cursor: pointer; }
+.views button.on { background: var(--royal); border-color: var(--royal); color: #fff; }
+.views button small { font-weight: 500; opacity: .9; }
+.search { position: relative; margin-bottom: 14px; }
+.search input { width: 100%; border: 1px solid var(--line); border-radius: 12px; padding: 9px 12px; font-size: 15px; background: var(--card); }
+.search input:focus { outline: 2px solid var(--sky); outline-offset: 1px; }
+.search .hint { font-size: 12px; color: var(--ink-2); margin-top: 4px; min-height: 18px; }
+.ops { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+.op { display: flex; align-items: center; gap: 10px; border: 1px solid transparent; background: none; border-radius: 10px; padding: 5px 8px; cursor: pointer; text-align: left; width: 100%; font-size: 14px; }
+.op:hover { background: var(--card-2); }
+.op .box { width: 18px; height: 18px; border-radius: 5px; border: 2px solid var(--pin); background: var(--pin); flex: none; position: relative; }
+.op .box::after { content: ""; position: absolute; left: 4px; top: 0; width: 5px; height: 10px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.op.off .box { background: #fff; border-color: #9AA6BA; }
+.op.off .box::after { display: none; }
+.op.off .name { color: #5B6680; }
+.op .name { flex: 1; font-weight: 500; }
+.op .n { font-weight: 600; font-variant-numeric: tabular-nums; }
+.p-foot { border-top: 1px solid var(--line); padding-top: 10px; font-size: 13px; color: var(--ink-2); line-height: 1.5; }
+.p-foot a { font-weight: 600; text-decoration: none; }
+
+/* ---------- pins ---------- */
+.pin { position: relative; width: 26px; height: 36px; cursor: pointer; }
+.pin svg { display: block; filter: drop-shadow(0 1px 1.5px rgba(14, 24, 48, .45)); }
+.pin .cnt { position: absolute; top: -6px; right: -8px; min-width: 17px; height: 17px; padding: 0 4px; border-radius: 9px; background: var(--navy); color: #fff;
+  font: 700 11px/17px var(--font); text-align: center; border: 1.5px solid #fff; }
+.pin.hl svg path { fill: #E8590C; stroke: #9A3608; }
+.pin:hover svg path, .pin:focus-visible svg path { fill: #0F55B8; }
+.pin:focus-visible { outline: 3px solid var(--sky); outline-offset: 2px; border-radius: 6px; }
+
+/* ---------- popups ---------- */
+.maplibregl-popup-content { border-radius: 14px; box-shadow: var(--shadow); padding: 14px 16px; font-family: var(--font); font-size: 14px; line-height: 1.45; color: var(--ink); min-width: 250px; }
+.maplibregl-popup-close-button { font-size: 20px; width: 30px; height: 30px; color: var(--ink-2); border-radius: 0 14px 0 8px; }
+.pp-head { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--royal); margin: 0 24px 6px 0; }
+.pp-list { max-height: 260px; overflow: auto; }
+.pp-board + .pp-board { border-top: 1px solid var(--line); margin-top: 10px; padding-top: 10px; }
+.pp-op { font-weight: 700; font-size: 15px; color: var(--navy); margin-right: 24px; }
+.pp-where { color: var(--ink); }
+.pp-meta { font-size: 12px; color: var(--ink-2); }
+.pp-btns { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+.pp-btns a { text-decoration: none; font-weight: 600; font-size: 13px; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--royal); color: var(--royal); }
+.pp-btns a.sv { background: var(--royal); color: #fff; }
+.maplibregl-map { font-family: var(--font); }
+.maplibregl-ctrl-attrib { font-size: 11px; }
+
+/* ---------- phones ---------- */
+@media (max-width: 640px) {
+  .panel { top: 10px; left: 10px; right: 10px; width: auto; max-height: calc(100% - 20px); border-left-width: 5px; }
+  .p-head { padding: 12px; }
+  .p-head img { width: 40px; height: 40px; }
+  .p-title { font-size: 17px; }
+  .p-toggle { display: block; }
+  .panel.collapsed .p-body, .panel.collapsed .p-sub { display: none; }
+  .p-body { padding: 0 12px 12px 12px; }
+  .stat b { font-size: 19px; }
+}
+@media print { .p-toggle, .maplibregl-ctrl-top-right { display: none; } }
+</style>
+</head>
+<body>
+<div id="map" role="region" aria-label="Map of billboard locations"></div>
+
+<aside class="panel" id="panel" aria-label="Saint Paul Agency billboard map">
+  <div class="p-head">
+    <img src="assets/img/spa-logo.png" alt="Saint Paul Agency logo">
+    <div>
+      <div class="p-eyebrow">Saint Paul Agency</div>
+      <h1 class="p-title">Digital Billboard Map</h1>
+      <div class="p-sub" id="subtitle"></div>
+    </div>
+    <button class="p-toggle" id="toggle" type="button" aria-expanded="true" aria-controls="pbody">Hide</button>
+  </div>
+  <div class="p-body" id="pbody">
+    <div class="stats">
+      <div class="stat"><b id="sBoards">0</b><span>digital billboards</span></div>
+      <div class="stat"><b id="sSpots">0</b><span>locations</span></div>
+      <div class="stat"><b id="sOps">0</b><span>operators</span></div>
+    </div>
+    <p class="label">Show</p>
+    <div class="views" id="views"></div>
+    <div class="search">
+      <input id="q" type="search" placeholder="Search a city, road or board ID" aria-label="Search a city, road or board ID" autocomplete="off">
+      <div class="hint" id="hint" aria-live="polite"></div>
+    </div>
+    <p class="label">Operators</p>
+    <div class="ops" id="ops"></div>
+    <div class="p-foot">Click any pin for the board's details and Google Street View.<br>
+      <a href="https://saintpaulagency.com" target="_blank" rel="noopener">saintpaulagency.com</a> · <a href="tel:+16125998422">(612) 599-8422</a></div>
+  </div>
+</aside>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.js"></script>
+<script src="data/boards.js"></script>
+<script>
+(function () {
+  const DATA = window.BOARDS, ALL = DATA.boards;
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const fmt = n => n.toLocaleString('en-US');
+  const narrow = () => window.matchMedia('(max-width: 640px)').matches;
+
+  // One pin per spot: boards on the same pole share a pin and are listed together.
+  const spots = [], byKey = {};
+  ALL.forEach(b => { const k = b.lat.toFixed(5) + ',' + b.lon.toFixed(5); if (!byKey[k]) { byKey[k] = { lat: b.lat, lon: b.lon, boards: [] }; spots.push(byKey[k]); } byKey[k].boards.push(b); });
+  const opCount = {}; ALL.forEach(b => { opCount[b.operator] = (opCount[b.operator] || 0) + 1; });
+  const OPS = Object.keys(opCount).sort((a, b) => opCount[b] - opCount[a] || a.localeCompare(b));
+  const opOn = new Set(OPS);
+
+  document.getElementById('subtitle').textContent = DATA.title.replace(/^Digital billboard inventory\s*·?\s*/i, '') || DATA.title;
+  document.getElementById('sBoards').textContent = fmt(ALL.length);
+  document.getElementById('sSpots').textContent = fmt(spots.length);
+  document.getElementById('sOps').textContent = fmt(OPS.length);
+
+  const map = new maplibregl.Map({
+    container: 'map', style: 'https://tiles.openfreemap.org/styles/liberty',
+    bounds: [[-93.9, 44.7], [-92.7, 45.3]], dragRotate: false, pitchWithRotate: false, attributionControl: { compact: false },
+  });
+  map.touchZoomRotate.disableRotation();
+  map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+  map.addControl(new maplibregl.ScaleControl({ unit: 'imperial' }), 'bottom-left');
+
+  const pinSvg = '<svg width="26" height="36" viewBox="0 0 26 36" aria-hidden="true"><path d="M13 1C6.4 1 1 6.3 1 12.9 1 21.8 13 35 13 35s12-13.2 12-22.1C25 6.3 19.6 1 13 1z" fill="#1F6FD8" stroke="#123F86" stroke-width="1.5"/><circle cx="13" cy="13" r="4.6" fill="#fff"/></svg>';
+  const sv = (lat, lon) => `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${lat},${lon}`;
+  const gm = (lat, lon) => `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
+
+  let query = '';
+  const matchQ = b => !query || [b.operator, b.where, b.city, b.code, b.id, b.zip].join(' ').toLowerCase().includes(query);
+  const shown = s => s.boards.filter(b => opOn.has(b.operator) && matchQ(b));
+
+  function popupHtml(s) {
+    const list = shown(s);
+    const head = list.length > 1 ? `<div class="pp-head">${list.length} boards at this spot</div>` : '';
+    return head + '<div class="pp-list">' + list.map(b => `<div class="pp-board"><div class="pp-op">${esc(b.operator)}</div>` +
+      `<div class="pp-where">${esc(b.where || 'Location not listed')}</div>` +
+      `<div class="pp-meta">${esc(b.city)}${b.zip ? ' ' + esc(b.zip) : ''}${b.code ? ' · Board ' + esc(b.code) : ''}</div></div>`).join('') + '</div>' +
+      `<div class="pp-btns"><a class="sv" href="${sv(s.lat, s.lon)}" target="_blank" rel="noopener">Open Street View</a><a href="${gm(s.lat, s.lon)}" target="_blank" rel="noopener">Google Maps</a></div>` +
+      `<div class="pp-meta" style="margin-top:6px">${s.lat.toFixed(5)}, ${s.lon.toFixed(5)}</div>`;
+  }
+  const popup = new maplibregl.Popup({ offset: [0, -34], maxWidth: '330px', focusAfterOpen: false });
+  function openSpot(s) {
+    // keep the popup clear of the panel and the screen edges: slide the map first when the pin sits too close
+    const pt = map.project([s.lon, s.lat]), W = map.getContainer().clientWidth, H = map.getContainer().clientHeight;
+    const left = narrow() ? 180 : 600, top = narrow() ? 420 : 380;
+    if (pt.x < left || pt.x > W - 180 || pt.y < top || pt.y > H - 30) {
+      const target = narrow() ? [W / 2, H - 70] : [Math.max(left, W * 0.6), H * 0.75];
+      map.easeTo({ center: [s.lon, s.lat], offset: [target[0] - W / 2, target[1] - H / 2], duration: 350 });
+    }
+    popup.setLngLat([s.lon, s.lat]).setHTML(popupHtml(s)).addTo(map);
+  }
+  spots.forEach(s => {
+    const el = document.createElement('div');            // MapLibre owns this element's classes and position
+    const pin = document.createElement('div'); pin.className = 'pin'; pin.tabIndex = 0; pin.setAttribute('role', 'button');
+    el.appendChild(pin); s.el = pin;
+    pin.addEventListener('click', e => { e.stopPropagation(); openSpot(s); });
+    pin.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openSpot(s); } });
+    s.marker = new maplibregl.Marker({ element: el, anchor: 'bottom' }).setLngLat([s.lon, s.lat]);
+  });
+
+  function refresh() {
+    let nb = 0;
+    spots.forEach(s => {
+      const l = shown(s);
+      if (!l.length) { s.marker.remove(); return; }
+      nb += l.length;
+      s.el.className = 'pin' + (query ? ' hl' : '');
+      s.el.innerHTML = pinSvg + (l.length > 1 ? `<span class="cnt">${l.length}</span>` : '');
+      const label = l.length > 1 ? `${l.length} boards · ${s.boards[0].city}` : `${l[0].operator} · ${l[0].city}`;
+      s.el.title = label; s.el.setAttribute('aria-label', label);
+      s.marker.addTo(map);
+    });
+    document.getElementById('hint').textContent = query ? (nb ? `${fmt(nb)} board${nb === 1 ? '' : 's'} match · press Enter to zoom to them` : 'No boards match') : '';
+  }
+
+  // views: the sheet's areas plus everything
+  const VIEWS = (DATA.views || []).concat([{ key: 'all', label: 'All boards', count: ALL.length }]);
+  const inView = (v, b) => !v.box || (b.lat >= v.box[0] && b.lat <= v.box[2] && b.lon >= v.box[1] && b.lon <= v.box[3]);
+  function pad() { return narrow() ? { top: document.getElementById('panel').offsetHeight + 40, bottom: 40, left: 24, right: 24 } : { top: 60, bottom: 50, left: 430, right: 70 }; }
+  function fitTo(list, instant) {
+    if (!list.length) return;
+    const lons = list.map(b => b.lon), lats = list.map(b => b.lat);
+    map.fitBounds([[Math.min(...lons), Math.min(...lats)], [Math.max(...lons), Math.max(...lats)]], { padding: pad(), maxZoom: 15, duration: instant ? 0 : 900 });
+  }
+  let current = VIEWS[0].key;
+  function setView(key, quiet) {
+    const v = VIEWS.find(x => x.key === key) || VIEWS[0]; current = v.key; popup.remove();
+    document.querySelectorAll('#views button').forEach(b => { const on = b.dataset.k === v.key; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+    fitTo(ALL.filter(b => inView(v, b)), quiet);
+    if (!quiet) history.replaceState(null, '', '#' + v.key);
+  }
+  document.getElementById('views').innerHTML = VIEWS.map(v => `<button type="button" data-k="${v.key}" aria-pressed="false">${esc(v.label)} <small>${fmt(v.count)}</small></button>`).join('');
+  document.getElementById('views').addEventListener('click', e => { const b = e.target.closest('button[data-k]'); if (b) setView(b.dataset.k); });
+
+  // operators
+  const opsEl = document.getElementById('ops');
+  opsEl.innerHTML = OPS.map(o => `<button type="button" class="op" data-o="${esc(o)}" aria-pressed="true"><span class="box"></span><span class="name">${esc(o)}</span><span class="n">${fmt(opCount[o])}</span></button>`).join('');
+  opsEl.addEventListener('click', e => {
+    const b = e.target.closest('button[data-o]'); if (!b) return;
+    const o = b.dataset.o;
+    if (opOn.has(o)) opOn.delete(o); else opOn.add(o);
+    if (!opOn.size) OPS.forEach(x => opOn.add(x));            // never leave the map empty
+    opsEl.querySelectorAll('.op').forEach(x => { const on = opOn.has(x.dataset.o); x.classList.toggle('off', !on); x.setAttribute('aria-pressed', on); });
+    popup.remove(); refresh();
+  });
+
+  // search
+  const q = document.getElementById('q');
+  q.addEventListener('input', () => { query = q.value.trim().toLowerCase(); popup.remove(); refresh(); });
+  q.addEventListener('keydown', e => { if (e.key === 'Enter') { const l = ALL.filter(b => opOn.has(b.operator) && matchQ(b)); fitTo(l); if (narrow()) togglePanel(false); } if (e.key === 'Escape') { q.value = ''; query = ''; refresh(); } });
+
+  // phone: fold the panel away
+  const panel = document.getElementById('panel'), tg = document.getElementById('toggle');
+  function togglePanel(open) { panel.classList.toggle('collapsed', !open); tg.textContent = open ? 'Hide' : 'Show'; tg.setAttribute('aria-expanded', open); }
+  tg.addEventListener('click', () => togglePanel(panel.classList.contains('collapsed')));
+  if (narrow()) togglePanel(false);
+
+  refresh();
+  const start = location.hash.slice(1);
+  setView(VIEWS.some(v => v.key === start) ? start : VIEWS[0].key, true);
+  window.__map = map;
+})();
+</script>
+</body>
+</html>
