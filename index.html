@@ -51,7 +51,7 @@ a { color: var(--royal); }
 .ops { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
 .op { display: flex; align-items: center; gap: 10px; border: 1px solid transparent; background: none; border-radius: 10px; padding: 5px 8px; cursor: pointer; text-align: left; width: 100%; font-size: 14px; }
 .op:hover { background: var(--card-2); }
-.op .box { width: 18px; height: 18px; border-radius: 5px; border: 2px solid var(--pin); background: var(--pin); flex: none; position: relative; }
+.op .box { width: 18px; height: 18px; border-radius: 5px; border: 2px solid var(--c, var(--pin)); background: var(--c, var(--pin)); flex: none; position: relative; }
 .op .box::after { content: ""; position: absolute; left: 4px; top: 0; width: 5px; height: 10px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
 .op.off .box { background: #fff; border-color: #9AA6BA; }
 .op.off .box::after { display: none; }
@@ -67,7 +67,8 @@ a { color: var(--royal); }
 .pin .cnt { position: absolute; top: -6px; right: -8px; min-width: 17px; height: 17px; padding: 0 4px; border-radius: 9px; background: var(--navy); color: #fff;
   font: 700 11px/17px var(--font); text-align: center; border: 1.5px solid #fff; }
 .pin.hl svg path { fill: #E8590C; stroke: #9A3608; }
-.pin:hover svg path, .pin:focus-visible svg path { fill: #0F55B8; }
+.pin:hover svg, .pin:focus-visible svg { filter: brightness(1.15) drop-shadow(0 2px 3px rgba(14, 24, 48, .5)); }
+.pin:hover { z-index: 2; }
 .pin:focus-visible { outline: 3px solid var(--sky); outline-offset: 2px; border-radius: 6px; }
 
 /* ---------- popups ---------- */
@@ -85,6 +86,32 @@ a { color: var(--royal); }
 .maplibregl-map { font-family: var(--font); }
 .maplibregl-ctrl-attrib { font-size: 11px; }
 
+/* ---------- color mode, presenting ---------- */
+.ops-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0 0 6px 0; }
+.ops-head .label { margin: 0; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 2px; background: var(--card-2); }
+.seg button { border: 0; background: none; border-radius: 999px; padding: 3px 10px; font-size: 12px; font-weight: 600; cursor: pointer; color: var(--ink-2); }
+.seg button.on { background: var(--royal); color: #fff; }
+.actions { display: flex; gap: 6px; margin-bottom: 14px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--royal); background: var(--royal); color: #fff; border-radius: 10px; padding: 7px 12px; font-size: 14px; font-weight: 600; cursor: pointer; }
+.btn svg { width: 16px; height: 16px; }
+.badge { display: none; position: absolute; z-index: 500; top: 16px; left: 16px; align-items: center; gap: 12px; background: var(--card); border-radius: 14px; box-shadow: var(--shadow);
+  border-left: 6px solid var(--royal); padding: 10px 12px 10px 14px; max-width: calc(100% - 100px); }
+.badge img { width: 40px; height: 40px; flex: none; }
+.badge .b-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--royal); }
+.badge .b-title { font-size: 18px; font-weight: 700; color: var(--navy); line-height: 1.2; }
+.badge .b-sub { font-size: 13px; color: var(--ink-2); }
+.b-views { display: flex; gap: 6px; margin-left: 10px; }
+.b-views button { border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 5px 11px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+.b-views button.on { background: var(--royal); border-color: var(--royal); color: #fff; }
+.badge .exit { margin-left: 8px; border: 1px solid var(--line); background: var(--card-2); border-radius: 10px; padding: 6px 10px; font-size: 13px; font-weight: 600; cursor: pointer; }
+.legend { display: none; position: absolute; z-index: 500; left: 16px; bottom: 34px; background: var(--card); border-radius: 12px; box-shadow: var(--shadow); padding: 10px 12px; font-size: 13px; }
+.legend div { display: flex; align-items: center; gap: 8px; line-height: 1.7; }
+.legend i { width: 12px; height: 12px; border-radius: 50%; flex: none; }
+body.present .panel { display: none; }
+body.present .badge { display: flex; }
+body.present.by-ops .legend { display: block; }
+
 /* ---------- phones ---------- */
 @media (max-width: 640px) {
   .panel { top: 10px; left: 10px; right: 10px; width: auto; max-height: calc(100% - 20px); border-left-width: 5px; }
@@ -96,7 +123,9 @@ a { color: var(--royal); }
   .p-body { padding: 0 12px 12px 12px; }
   .stat b { font-size: 19px; }
 }
-@media print { .p-toggle, .maplibregl-ctrl-top-right { display: none; } }
+@media (max-width: 900px) { .b-views { display: none; } }
+@media (max-width: 640px) { .badge { top: 10px; left: 10px; } .badge .b-title { font-size: 15px; } .badge img { width: 32px; height: 32px; } .legend { left: 10px; bottom: 30px; } }
+@media print { .p-toggle, .maplibregl-ctrl-top-right, .badge .exit { display: none; } }
 </style>
 </head>
 <body>
@@ -118,18 +147,30 @@ a { color: var(--royal); }
       <div class="stat"><b id="sSpots">0</b><span>locations</span></div>
       <div class="stat"><b id="sOps">0</b><span>operators</span></div>
     </div>
+    <div class="actions">
+      <button class="btn" id="present" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>Present full screen</button>
+    </div>
     <p class="label">Show</p>
     <div class="views" id="views"></div>
     <div class="search">
       <input id="q" type="search" placeholder="Search a city, road or board ID" aria-label="Search a city, road or board ID" autocomplete="off">
       <div class="hint" id="hint" aria-live="polite"></div>
     </div>
-    <p class="label">Operators</p>
+    <div class="ops-head"><p class="label">Operators</p>
+      <div class="seg" id="colorMode" role="group" aria-label="Pin color"><button type="button" data-c="one">One color</button><button type="button" data-c="ops">By company</button></div></div>
     <div class="ops" id="ops"></div>
     <div class="p-foot">Click any pin for the board's details and Google Street View.<br>
       <a href="https://saintpaulagency.com" target="_blank" rel="noopener">saintpaulagency.com</a> · <a href="tel:+16125998422">(612) 599-8422</a></div>
   </div>
 </aside>
+
+<div class="badge" id="badge" aria-label="Saint Paul Agency billboard map">
+  <img src="assets/img/spa-logo.png" alt="Saint Paul Agency logo">
+  <div><div class="b-eyebrow">Saint Paul Agency</div><div class="b-title">Digital Billboard Map</div><div class="b-sub" id="bSub"></div></div>
+  <div class="b-views" id="bViews" role="group" aria-label="Show"></div>
+  <button class="exit" id="exit" type="button">Exit</button>
+</div>
+<div class="legend" id="legend" aria-label="Billboard companies"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.js"></script>
 <script src="data/boards.js"></script>
@@ -160,7 +201,13 @@ a { color: var(--royal); }
   map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
   map.addControl(new maplibregl.ScaleControl({ unit: 'imperial' }), 'bottom-left');
 
-  const pinSvg = '<svg width="26" height="36" viewBox="0 0 26 36" aria-hidden="true"><path d="M13 1C6.4 1 1 6.3 1 12.9 1 21.8 13 35 13 35s12-13.2 12-22.1C25 6.3 19.6 1 13 1z" fill="#1F6FD8" stroke="#123F86" stroke-width="1.5"/><circle cx="13" cy="13" r="4.6" fill="#fff"/></svg>';
+  // Pin colors: SPA blue, or one color per company (the biggest companies get the first colors).
+  const BLUE = ['#1F6FD8', '#123F86'];
+  const PALETTE = [['#1F6FD8', '#123F86'], ['#D9480F', '#8A2E09'], ['#2B8A3E', '#1A5426'], ['#862E9C', '#521C5F'], ['#C2255C', '#7A1739'], ['#0B7285', '#074652'], ['#5C677D', '#363D4A'], ['#B08900', '#6B5300']];
+  const opColor = {}; OPS.forEach((o, i) => { opColor[o] = PALETTE[i % PALETTE.length]; });
+  let colorMode = 'one';
+  try { if (localStorage.getItem('spaMapColor') === 'ops') colorMode = 'ops'; } catch (e) {}
+  const pinSvg = c => `<svg width="26" height="36" viewBox="0 0 26 36" aria-hidden="true"><path d="M13 1C6.4 1 1 6.3 1 12.9 1 21.8 13 35 13 35s12-13.2 12-22.1C25 6.3 19.6 1 13 1z" fill="${c[0]}" stroke="${c[1]}" stroke-width="1.5"/><circle cx="13" cy="13" r="4.6" fill="#fff"/></svg>`;
   const sv = (lat, lon) => `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${lat},${lon}`;
   const gm = (lat, lon) => `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
 
@@ -181,7 +228,7 @@ a { color: var(--royal); }
   function openSpot(s) {
     // keep the popup clear of the panel and the screen edges: slide the map first when the pin sits too close
     const pt = map.project([s.lon, s.lat]), W = map.getContainer().clientWidth, H = map.getContainer().clientHeight;
-    const left = narrow() ? 180 : 600, top = narrow() ? 420 : 380;
+    const left = narrow() || presenting() ? 180 : 600, top = narrow() ? 420 : 380;
     if (pt.x < left || pt.x > W - 180 || pt.y < top || pt.y > H - 30) {
       const target = narrow() ? [W / 2, H - 70] : [Math.max(left, W * 0.6), H * 0.75];
       map.easeTo({ center: [s.lon, s.lat], offset: [target[0] - W / 2, target[1] - H / 2], duration: 350 });
@@ -203,8 +250,9 @@ a { color: var(--royal); }
       const l = shown(s);
       if (!l.length) { s.marker.remove(); return; }
       nb += l.length;
-      s.el.className = 'pin' + (query ? ' hl' : '');
-      s.el.innerHTML = pinSvg + (l.length > 1 ? `<span class="cnt">${l.length}</span>` : '');
+      const byOps = colorMode === 'ops';
+      s.el.className = 'pin' + (query && !byOps ? ' hl' : '');
+      s.el.innerHTML = pinSvg(byOps ? opColor[l[0].operator] : BLUE) + (l.length > 1 ? `<span class="cnt">${l.length}</span>` : '');
       const label = l.length > 1 ? `${l.length} boards · ${s.boards[0].city}` : `${l[0].operator} · ${l[0].city}`;
       s.el.title = label; s.el.setAttribute('aria-label', label);
       s.marker.addTo(map);
@@ -215,7 +263,11 @@ a { color: var(--royal); }
   // views: the sheet's areas plus everything
   const VIEWS = (DATA.views || []).concat([{ key: 'all', label: 'All boards', count: ALL.length }]);
   const inView = (v, b) => !v.box || (b.lat >= v.box[0] && b.lat <= v.box[2] && b.lon >= v.box[1] && b.lon <= v.box[3]);
-  function pad() { return narrow() ? { top: document.getElementById('panel').offsetHeight + 40, bottom: 40, left: 24, right: 24 } : { top: 60, bottom: 50, left: 430, right: 70 }; }
+  const presenting = () => document.body.classList.contains('present');
+  function pad() {
+    if (presenting()) return narrow() ? { top: 120, bottom: 40, left: 24, right: 24 } : { top: 150, bottom: 50, left: 60, right: 70 };
+    return narrow() ? { top: document.getElementById('panel').offsetHeight + 40, bottom: 40, left: 24, right: 24 } : { top: 60, bottom: 50, left: 430, right: 70 };
+  }
   function fitTo(list, instant) {
     if (!list.length) return;
     const lons = list.map(b => b.lon), lats = list.map(b => b.lat);
@@ -224,24 +276,54 @@ a { color: var(--royal); }
   let current = VIEWS[0].key;
   function setView(key, quiet) {
     const v = VIEWS.find(x => x.key === key) || VIEWS[0]; current = v.key; popup.remove();
-    document.querySelectorAll('#views button').forEach(b => { const on = b.dataset.k === v.key; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+    document.querySelectorAll('#views button, #bViews button').forEach(b => { const on = b.dataset.k === v.key; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
     fitTo(ALL.filter(b => inView(v, b)), quiet);
     if (!quiet) history.replaceState(null, '', '#' + v.key);
   }
   document.getElementById('views').innerHTML = VIEWS.map(v => `<button type="button" data-k="${v.key}" aria-pressed="false">${esc(v.label)} <small>${fmt(v.count)}</small></button>`).join('');
-  document.getElementById('views').addEventListener('click', e => { const b = e.target.closest('button[data-k]'); if (b) setView(b.dataset.k); });
+  document.getElementById('bViews').innerHTML = VIEWS.map(v => `<button type="button" data-k="${v.key}" aria-pressed="false">${esc(v.label)}</button>`).join('');
+  ['views', 'bViews'].forEach(id => document.getElementById(id).addEventListener('click', e => { const b = e.target.closest('button[data-k]'); if (b) setView(b.dataset.k); }));
 
   // operators
   const opsEl = document.getElementById('ops');
-  opsEl.innerHTML = OPS.map(o => `<button type="button" class="op" data-o="${esc(o)}" aria-pressed="true"><span class="box"></span><span class="name">${esc(o)}</span><span class="n">${fmt(opCount[o])}</span></button>`).join('');
+  opsEl.innerHTML = OPS.map(o => `<button type="button" class="op" data-o="${esc(o)}" aria-pressed="true"><span class="box" data-c="${opColor[o][0]}"></span><span class="name">${esc(o)}</span><span class="n">${fmt(opCount[o])}</span></button>`).join('');
+  const legendEl = document.getElementById('legend');
+  function paintColors() {
+    const byOps = colorMode === 'ops';
+    document.body.classList.toggle('by-ops', byOps);
+    document.querySelectorAll('#colorMode button').forEach(b => { const on = b.dataset.c === colorMode; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+    opsEl.querySelectorAll('.box').forEach(x => { if (byOps) x.style.setProperty('--c', x.dataset.c); else x.style.removeProperty('--c'); });
+    legendEl.innerHTML = OPS.filter(o => opOn.has(o)).map(o => `<div><i style="background:${opColor[o][0]}"></i>${esc(o)}</div>`).join('');
+  }
+  document.getElementById('colorMode').addEventListener('click', e => {
+    const b = e.target.closest('button[data-c]'); if (!b) return;
+    colorMode = b.dataset.c;
+    try { localStorage.setItem('spaMapColor', colorMode); } catch (err) {}
+    paintColors(); refresh();
+  });
   opsEl.addEventListener('click', e => {
     const b = e.target.closest('button[data-o]'); if (!b) return;
     const o = b.dataset.o;
     if (opOn.has(o)) opOn.delete(o); else opOn.add(o);
     if (!opOn.size) OPS.forEach(x => opOn.add(x));            // never leave the map empty
     opsEl.querySelectorAll('.op').forEach(x => { const on = opOn.has(x.dataset.o); x.classList.toggle('off', !on); x.setAttribute('aria-pressed', on); });
-    popup.remove(); refresh();
+    popup.remove(); paintColors(); refresh();
   });
+
+  // presenting: full screen, panel replaced by a small SPA badge (and the company key when pins are colored by company)
+  document.getElementById('bSub').textContent = `${fmt(ALL.length)} digital billboards · ${fmt(spots.length)} locations`;
+  function setPresent(on) {
+    if (on === presenting()) return;
+    document.body.classList.toggle('present', on); popup.remove();
+    const el = document.documentElement;
+    if (on && el.requestFullscreen && !document.fullscreenElement) el.requestFullscreen().catch(() => {});
+    if (!on && document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(() => {});
+    setTimeout(() => { map.resize(); setView(current, true); }, 250);
+  }
+  document.getElementById('present').addEventListener('click', () => setPresent(true));
+  document.getElementById('exit').addEventListener('click', () => setPresent(false));
+  document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && presenting()) setPresent(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && presenting() && !document.fullscreenElement) setPresent(false); });
 
   // search
   const q = document.getElementById('q');
@@ -254,6 +336,7 @@ a { color: var(--royal); }
   tg.addEventListener('click', () => togglePanel(panel.classList.contains('collapsed')));
   if (narrow()) togglePanel(false);
 
+  paintColors();
   refresh();
   const start = location.hash.slice(1);
   setView(VIEWS.some(v => v.key === start) ? start : VIEWS[0].key, true);

@@ -8,7 +8,8 @@ An interactive map of digital billboard locations for Saint Paul Agency presenta
 - Click a pin for the operator, location, board ID and a one-click **Google Street View** link.
 - **Show:** Twin Cities, St. Cloud or all boards. Add `#stcloud` or `#all` to the link to open on that view.
 - **Search** a city, road or board ID; press Enter to zoom to the matches.
-- **Operators:** click one to hide or show its boards.
+- **Operators:** click one to hide or show its boards. **One color / By company** switches the pins between SPA blue and one color per company (with a key).
+- **Present full screen:** hides the panel behind a small Saint Paul Agency badge with the view buttons; Exit or Esc returns.
 - Saint Paul Agency branding only. Works on phones (the panel folds away).
 
 ## Updating the boards
