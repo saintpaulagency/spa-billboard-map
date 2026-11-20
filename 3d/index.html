@@ -15,7 +15,7 @@
 @font-face { font-family: Poppins; font-weight: 700; font-display: swap; src: url(../assets/fonts/poppins-latin-700-normal.woff2) format('woff2'); }
 @font-face { font-family: Poppins; font-weight: 800; font-display: swap; src: url(../assets/fonts/poppins-latin-800-normal.woff2) format('woff2'); }
 :root {
-  --bg: #030814; --glass: rgba(8, 16, 37, .88); --glass-2: rgba(20, 36, 74, .55); --edge: rgba(120, 175, 255, .22); --edge-2: rgba(120, 175, 255, .38);
+  --bg: #030814; --glass: rgba(8, 16, 37, .94); --glass-2: rgba(20, 36, 74, .55); --edge: rgba(120, 175, 255, .22); --edge-2: rgba(120, 175, 255, .38);
   --text: #FFFFFF; --text-2: #FFFFFF; --muted: #FFFFFF; --cyan: #39C6FF; --cyan-2: #1E8CFF; --royal: #233975; --navy: #0E1830;
   --font: Poppins, system-ui, -apple-system, "Segoe UI", sans-serif;
   --shadow: 0 10px 40px rgba(0, 0, 0, .45), 0 0 0 1px rgba(120, 175, 255, .08);
@@ -39,7 +39,7 @@ a { color: var(--cyan); }
 
 /* ---------- glass panel ---------- */
 .panel { position: absolute; z-index: 500; top: 16px; left: 16px; width: 384px; max-height: calc(100% - 32px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin;
-  background: var(--glass); backdrop-filter: blur(16px) saturate(140%); -webkit-backdrop-filter: blur(16px) saturate(140%);
+  background: var(--glass);
   border: 1px solid var(--edge); border-radius: 20px; box-shadow: var(--shadow); transition: opacity .6s, transform .6s; }
 .panel::before { content: ""; position: absolute; left: 0; top: 18px; bottom: 18px; width: 3px; border-radius: 3px; background: linear-gradient(var(--cyan), var(--cyan-2) 60%, transparent); box-shadow: 0 0 12px var(--cyan); }
 body.intro .panel, body.intro .hud-top { opacity: 0; transform: translateY(-8px); pointer-events: none; }
@@ -107,7 +107,7 @@ body.intro .panel, body.intro .hud-top { opacity: 0; transform: translateY(-8px)
 .p-foot .src { display: block; color: var(--muted); font-size: 13px; font-weight: 500; }
 
 /* ---------- billboards ---------- */
-.bb { --s: 1; --h: 1; position: relative; width: 58px; height: 52px; cursor: pointer; transform: scale(calc(var(--s) * var(--h))); transform-origin: 50% 100%; transition: transform .18s; }
+.bb { --s: 1; --h: 1; position: relative; width: 58px; height: 52px; cursor: pointer; transform: scale(calc(var(--s) * var(--h))); transform-origin: 50% 100%; transition: transform .18s; will-change: transform; }
 .bb .scr { position: absolute; left: 0; top: 0; width: 58px; height: 33px; border-radius: 4px; overflow: hidden; background: linear-gradient(135deg, #0A3D91, #1B7FE0);
   border: 2.5px solid var(--c); box-shadow: 0 0 10px var(--c), 0 0 22px color-mix(in srgb, var(--c) 55%, transparent), inset 0 0 0 1px rgba(0, 0, 0, .6); }
 .bb .scr::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .05) 0 1px, transparent 1px 3px), linear-gradient(160deg, rgba(255, 255, 255, .22), transparent 45%); }
@@ -122,8 +122,9 @@ body.intro .panel, body.intro .hud-top { opacity: 0; transform: translateY(-8px)
 
 /* the ads */
 .ads { position: absolute; inset: 0; }
-.ad { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; line-height: 1.02; letter-spacing: .02em;
-  opacity: 0; animation: adcycle 14.4s infinite; animation-delay: calc(var(--i) * 2.4s + var(--d, 0s)); font-family: var(--font); color: #fff; }
+.ads { animation: adstrip 14.4s ease-in-out infinite; animation-delay: var(--d, 0s); will-change: transform; }
+.ad { position: absolute; left: 0; top: calc(var(--i) * 100%); width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; line-height: 1.02; letter-spacing: .02em;
+  font-family: var(--font); color: #fff; }
 .ad b { font-size: 9px; font-weight: 700; } .ad span { font-size: 7px; font-weight: 700; }
 .ad img { width: 15px; height: 15px; border-radius: 50%; background: #fff; padding: 1px; margin-bottom: 1px; }
 .a-cyan { background: linear-gradient(135deg, #0A3D91, #19A8FF); }
@@ -132,7 +133,15 @@ body.intro .panel, body.intro .hud-top { opacity: 0; transform: translateY(-8px)
 .a-red { background: linear-gradient(135deg, #B0123B, #FF3D5A); }
 .a-lime { background: linear-gradient(135deg, #0B6B3A, #22C55E); }
 .a-violet { background: linear-gradient(135deg, #4C1D95, #A855F7); }
-@keyframes adcycle { 0% { opacity: 0; transform: translateY(40%); } 2% { opacity: 1; transform: none; } 18.5% { opacity: 1; transform: none; } 20.5% { opacity: 0; transform: translateY(-40%); } 100% { opacity: 0; } }
+@keyframes adstrip { 0%, 14.5% { transform: translateY(0); } 16.67%, 31.17% { transform: translateY(-100%); } 33.33%, 47.83% { transform: translateY(-200%); }
+  50%, 64.5% { transform: translateY(-300%); } 66.67%, 81.17% { transform: translateY(-400%); } 83.33%, 97.83% { transform: translateY(-500%); } 100% { transform: translateY(-600%); } }
+/* the glow ring on the ground under each board (drawn by the graphics card, no map redraws) */
+.bb .ring { position: absolute; left: 50%; bottom: -7px; width: 46px; height: 16px; margin-left: -23px; border: 2px solid var(--c); border-radius: 50%; opacity: 0; pointer-events: none;
+  animation: ring 2.4s ease-out infinite; animation-delay: var(--rd, 0s); will-change: transform, opacity; }
+@keyframes ring { 0% { transform: scale(.2); opacity: .9; } 100% { transform: scale(1.5); opacity: 0; } }
+/* lighter mode for slower computers: no rings; ads play only on the board you point at */
+.lite .bb .ring { display: none; }
+.lite .bb:not(:hover):not(.sel) .ads { animation-play-state: paused; }
 
 /* hover label */
 .tip { position: fixed; z-index: 600; pointer-events: none; background: rgba(6, 14, 32, .92); border: 1px solid var(--edge-2); color: #fff; font-size: 15px; font-weight: 600; padding: 6px 12px;
@@ -140,7 +149,7 @@ body.intro .panel, body.intro .hud-top { opacity: 0; transform: translateY(-8px)
 .tip.on { opacity: 1; } .tip b { color: var(--cyan); }
 
 /* ---------- popups ---------- */
-.maplibregl-popup-content { background: rgba(8, 17, 38, .94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--edge-2); border-radius: 16px;
+.maplibregl-popup-content { background: rgba(8, 17, 38, .94); border: 1px solid var(--edge-2); border-radius: 16px;
   box-shadow: var(--shadow), 0 0 24px rgba(57, 198, 255, .18); padding: 16px 18px; font-family: var(--font); font-size: 15.5px; line-height: 1.45; color: var(--text); min-width: 300px; }
 .maplibregl-popup-anchor-bottom .maplibregl-popup-tip { border-top-color: rgba(8, 17, 38, .94); }
 .maplibregl-popup-anchor-top .maplibregl-popup-tip { border-bottom-color: rgba(8, 17, 38, .94); }
@@ -193,7 +202,7 @@ body:not(.intro) .skip { display: none; }
   padding: 14px 18px; font-size: 15px; max-width: calc(100% - 40px); text-align: center; box-shadow: var(--shadow); }
 .status[hidden] { display: none; }
 .caption { position: fixed; z-index: 550; left: 50%; bottom: 40px; transform: translate(-50%, 12px); opacity: 0; transition: opacity .5s, transform .5s; pointer-events: none;
-  background: var(--glass); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid var(--edge-2); border-radius: 16px; padding: 12px 20px; text-align: center; box-shadow: var(--shadow), 0 0 26px rgba(57, 198, 255, .2); min-width: 280px; }
+  background: var(--glass); border: 1px solid var(--edge-2); border-radius: 16px; padding: 12px 20px; text-align: center; box-shadow: var(--shadow), 0 0 26px rgba(57, 198, 255, .2); min-width: 280px; }
 .caption.on { opacity: 1; transform: translate(-50%, 0); }
 .caption .k { font-size: 13.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); }
 .caption .t { font-size: 32px; font-weight: 700; margin-top: 2px; }
@@ -202,7 +211,7 @@ body:not(.intro) .skip { display: none; }
 body.touring .stopTour { display: flex; }
 
 /* ---------- presenting ---------- */
-.badge { display: none; position: absolute; z-index: 500; top: 16px; left: 16px; align-items: center; gap: 14px; background: var(--glass); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+.badge { display: none; position: absolute; z-index: 500; top: 16px; left: 16px; align-items: center; gap: 14px; background: var(--glass);
   border: 1px solid var(--edge); border-radius: 18px; box-shadow: var(--shadow); padding: 10px 14px; max-width: calc(100% - 100px); }
 .badge .logo { width: 86px; height: 86px; } .badge .logo::after { inset: -7px; }
 .badge .b-eyebrow { font-size: 16px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); }
@@ -211,7 +220,7 @@ body.touring .stopTour { display: flex; }
 .b-btns { display: flex; gap: 6px; margin-left: 8px; }
 .b-btns button { border: 1px solid var(--edge-2); background: var(--glass-2); border-radius: 999px; padding: 7px 14px; font-size: 14.5px; font-weight: 700; cursor: pointer; white-space: nowrap; }
 .b-btns button.on { background: linear-gradient(135deg, #2BB8FF, #1E6FFF); border-color: transparent; }
-.legend { display: none; position: absolute; z-index: 500; left: 16px; bottom: 34px; background: var(--glass); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid var(--edge); border-radius: 14px; padding: 12px 16px; font-size: 15.5px; font-weight: 600; }
+.legend { display: none; position: absolute; z-index: 500; left: 16px; bottom: 34px; background: var(--glass); border: 1px solid var(--edge); border-radius: 14px; padding: 12px 16px; font-size: 15.5px; font-weight: 600; }
 .legend div { display: flex; align-items: center; gap: 8px; line-height: 1.75; }
 .legend i { width: 12px; height: 12px; border-radius: 50%; flex: none; box-shadow: 0 0 8px currentColor; }
 body.present .panel { display: none; }
@@ -268,7 +277,7 @@ body.present.by-ops .legend { display: block; }
   .maplibregl-ctrl-scale { display: none; }
   body.touring .maplibregl-ctrl-top-right { display: none; }
 }
-@media (prefers-reduced-motion: reduce) { .ad { animation: none; } .ad:first-child { opacity: 1; } .logo::after { animation: none; } .bb { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .ads, .bb .ring { animation: none; } .logo::after { animation: none; } .bb { transition: none; } }
 </style>
 </head>
 <body class="intro">
@@ -371,7 +380,7 @@ body.present.by-ops .legend { display: block; }
 
   // the sample ads every billboard plays (generic, no client)
   const ADS = [['YOUR AD', 'HERE', 'a-cyan'], ['SAINT PAUL', 'AGENCY', 'a-spa', 1], ['GRAND', 'OPENING', 'a-sun'], ['BIG SALE', '50% OFF', 'a-red'], ['NOW', 'HIRING', 'a-lime'], ['OPEN', '24/7', 'a-violet']];
-  const adsHtml = d => '<div class="ads">' + ADS.map((a, i) => `<div class="ad ${a[2]}" style="--i:${i};--d:${d}s">${a[3] ? '<img src="../assets/img/spa-logo.png" alt="">' : ''}<b>${a[0]}</b><span>${a[1]}</span></div>`).join('') + '</div>';
+  const adsHtml = d => `<div class="ads" style="--d:${d}s">` + ADS.concat([ADS[0]]).map((a, i) => `<div class="ad ${a[2]}" style="--i:${i}">${a[3] ? '<img src="../assets/img/spa-logo.png" alt="">' : ''}<b>${a[0]}</b><span>${a[1]}</span></div>`).join('') + '</div>';
 
   // ---------- map styles: night (our own colors on OpenFreeMap's dark map) and day ----------
   const STYLE_URL = { night: 'https://tiles.openfreemap.org/styles/dark', day: 'https://tiles.openfreemap.org/styles/liberty' };
@@ -436,12 +445,17 @@ body.present.by-ops .legend { display: block; }
 
   // the globe fills about half the screen height (or most of a phone's width)
   const globeZoom = () => Math.max(0.6, Math.min(2.2, Math.log2(Math.min(innerHeight * 0.52, innerWidth * 0.72) / 151)));
+  // drawing quality: 2 full, 1 lighter, 0 lightest; steps down by itself if the computer struggles, and is remembered
+  const DPR = window.devicePixelRatio || 1, PIXELS = [1, Math.min(DPR, 1.25), Math.min(DPR, 1.5)];
+  let quality = Math.max(0, Math.min(2, parseInt(store.get('spa3dQ') || '2', 10) || 0));
+  if (quality < 2) document.body.classList.add('lite');
   let map, firstStyle;
   try { firstStyle = await getStyle(mapStyle); }
   catch (e) { return fail('The map couldn’t load. Check the internet connection, or use the backup PDF.'); }
   try {
     map = new maplibregl.Map({ container: 'map', style: firstStyle, center: [-75, 30], zoom: globeZoom(), pitch: 0, bearing: 0,
-      maxPitch: 75, attributionControl: { compact: true }, canvasContextAttributes: { antialias: true } });
+      maxPitch: 75, attributionControl: { compact: true }, canvasContextAttributes: { antialias: false },
+      pixelRatio: PIXELS[quality] });
   } catch (e) { return fail('This computer’s browser can’t draw the 3D map (it needs WebGL).'); }
   map.addControl(new maplibregl.NavigationControl({ showCompass: true, visualizePitch: true }), 'top-right');
   map.addControl(new maplibregl.ScaleControl({ unit: 'imperial' }), 'bottom-left');
@@ -450,34 +464,20 @@ body.present.by-ops .legend { display: block; }
   setTimeout(() => { if (!loaded) fail('The map is slow to load. Check the internet connection, or use the backup PDF.'); }, 20000);
 
   // ---------- ground glow under every board (drawn by the map, so it lies flat on the ground) ----------
-  let t0 = performance.now();
   function spotsGeo() {
     return { type: 'FeatureCollection', features: spots.filter(s => shown(s).length).map(s => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [s.lon, s.lat] },
       properties: { c: colorOf(s), n: shown(s).length, g: s.i % 3 } })) };
   }
-  // the pulse rings run in three groups, a beat apart; each group's size is a plain number per frame
-  // (a per-board expression here would make the map re-read its data every frame)
-  const PULSES = [0, 1, 2];
   function addOverlays() {
     if (map.getSource('spots')) return;
     map.addSource('spots', { type: 'geojson', data: spotsGeo() });
     const night = mapStyle === 'night';
     map.addLayer({ id: 'spot-glow', type: 'circle', source: 'spots', paint: { 'circle-color': ['get', 'c'], 'circle-blur': 1, 'circle-pitch-alignment': 'map',
       'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 6, 8, 10, 11, 22, 15, 60], 'circle-opacity': night ? 0.55 : 0.35 } });
-    PULSES.forEach(g => map.addLayer({ id: 'spot-pulse-' + g, type: 'circle', source: 'spots', filter: ['==', ['get', 'g'], g],
-      paint: { 'circle-color': 'rgba(0,0,0,0)', 'circle-stroke-color': ['get', 'c'], 'circle-stroke-width': 2, 'circle-pitch-alignment': 'map', 'circle-radius': 10, 'circle-stroke-opacity': 0.6 } }));
     map.addLayer({ id: 'spot-core', type: 'circle', source: 'spots', paint: { 'circle-color': ['get', 'c'], 'circle-pitch-alignment': 'map',
       'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 2, 9, 3, 14, 6], 'circle-stroke-color': night ? '#fff' : '#0E1830', 'circle-stroke-width': ['interpolate', ['linear'], ['zoom'], 3, 0.5, 12, 1.5] } });
     map.setLayoutProperty('building-3d', 'visibility', dim3d ? 'visible' : 'none');
-  }
-  function pulse() {                                     // expanding ring under each board, each on its own beat
-    if (!map.getLayer('spot-pulse-0') || calm) return;
-    const z = Math.max(4, Math.min(15, map.getZoom())), base = 3 + (z - 4) * 1.4, grow = 6 + (z - 4) * 3.6;
-    PULSES.forEach(g => {
-      const ph = (((performance.now() - t0) / 2400) + g / 3) % 1;
-      map.setPaintProperty('spot-pulse-' + g, 'circle-radius', +(base + grow * ph).toFixed(1));
-      map.setPaintProperty('spot-pulse-' + g, 'circle-stroke-opacity', +(0.75 * (1 - ph)).toFixed(2));
-    });
+    if (quality === 0 && map.getLayer('motorway-glow')) map.setLayoutProperty('motorway-glow', 'visibility', 'none');
   }
   map.on('style.load', addOverlays);
 
@@ -528,7 +528,7 @@ body.present.by-ops .legend { display: block; }
   spots.forEach(s => {
     const el = document.createElement('div');
     const bb = document.createElement('div'); bb.className = 'bb'; bb.tabIndex = 0; bb.setAttribute('role', 'button');
-    bb.innerHTML = `<div class="scr">${adsHtml(-((s.i * 1.7) % 14.4).toFixed(1))}</div><div class="pole"></div>`;
+    bb.innerHTML = `<div class="ring" style="--rd:${-((s.i * 0.37) % 2.4).toFixed(2)}s"></div><div class="scr">${adsHtml(-((s.i * 1.7) % 14.4).toFixed(1))}</div><div class="pole"></div>`;
     s.cnt = document.createElement('span'); s.cnt.className = 'cnt'; bb.appendChild(s.cnt);
     el.appendChild(bb); s.el = bb;
     bb.addEventListener('click', e => { e.stopPropagation(); openSpot(s); });
@@ -540,18 +540,27 @@ body.present.by-ops .legend { display: block; }
 
   // billboards stand up on the tilted map; nearer ones are bigger, far-away ones smaller
   const zoomScale = z => z < 8.5 ? 0.5 : z < 9.6 ? 0.62 : z < 11 ? 0.78 : z < 12.5 ? 0.92 : 1.05;
+  let far = null;
   function sizeBoards() {
     const z = map.getZoom(), H = map.getContainer().clientHeight, pitch = map.getPitch() / 60, base = zoomScale(z);
-    map.getContainer().classList.toggle('far', z < 6.2);
-    if (z < 6.2) return;
+    if (far !== (z < 6.2)) { far = z < 6.2; map.getContainer().classList.toggle('far', far); }
+    if (far) return;
     spots.forEach(s => {
       if (!s.on) return;
       const y = map.project([s.lon, s.lat]).y;
       const persp = 1 - pitch * 0.55 * (1 - Math.min(1, Math.max(0, y / H)));
-      s.el.style.setProperty('--s', (base * persp).toFixed(3));
+      const v = Math.round(base * persp * 40) / 40;                 // steps of 0.025, so tiny changes don't restyle
+      if (v !== s.size) { s.size = v; s.el.style.setProperty('--s', v); }
     });
   }
-  map.on('move', () => { sizeBoards(); hideTip(); });
+  let lastSize = 0, sizeTimer = null;
+  map.on('move', () => {
+    hideTip();
+    const now = performance.now();
+    if (now - lastSize > 100) { lastSize = now; sizeBoards(); }
+    else if (!sizeTimer) sizeTimer = setTimeout(() => { sizeTimer = null; lastSize = performance.now(); sizeBoards(); }, 110);
+  });
+  map.on('moveend', sizeBoards);
 
   const filtered = () => !!query || opOn.size < OPS.length;
   function refresh() {
@@ -749,10 +758,20 @@ body.present.by-ops .legend { display: block; }
   document.getElementById('tour').addEventListener('click', startTour);
   document.getElementById('stopTour').addEventListener('click', stopTour);
 
-  // ---------- animation loop: ground pulse + orbit ----------
-  let lastPulse = 0, lastFrame = performance.now();
+  // ---------- animation loop: orbit + keeping it smooth ----------
+  function setQuality(q) {
+    quality = q; store.set('spa3dQ', q);
+    document.body.classList.toggle('lite', q < 2);
+    if (map.setPixelRatio) map.setPixelRatio(PIXELS[q]);
+    if (q === 0 && map.getLayer('motorway-glow')) map.setLayoutProperty('motorway-glow', 'visibility', 'none');
+  }
+  let lastFrame = performance.now(), fpsT0 = lastFrame, fpsN = 0, slow = 0;
   (function loop(now) {
-    if (now - lastPulse > 50) { pulse(); lastPulse = now; }
+    fpsN++;
+    if (now - fpsT0 > 2500) {                        // every 2.5 s: if two checks in a row run under ~25 frames a second, step down
+      const fps = fpsN * 1000 / (now - fpsT0); fpsT0 = now; fpsN = 0;
+      if (started && !document.body.classList.contains('intro') && !document.hidden) { slow = fps < 25 ? slow + 1 : 0; if (slow >= 2 && quality > 0) { slow = 0; setQuality(quality - 1); } }
+    }
     const dt = Math.min(100, now - lastFrame); lastFrame = now;
     if (orbiting && !map.isMoving()) map.setBearing(map.getBearing() + dt * 0.0025);   // about 2.5° a second, the same on any screen
     requestAnimationFrame(loop);
