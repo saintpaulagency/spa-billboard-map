@@ -2,26 +2,26 @@
 
 An interactive map of digital billboard locations for Saint Paul Agency presentations.
 
-**Live map:** https://saintpaulagency.github.io/spa-billboard-map/
+**Live map (3D):** https://saintpaulagency.github.io/spa-billboard-map/ (add `#stcloud` or `#all` to open on that view)
+**Classic map (flat, lighter):** https://saintpaulagency.github.io/spa-billboard-map/classic/ (the old `/3d/` link forwards to the main map)
 
-- Every board is a blue pin. Boards on the same pole share one pin with a count. Pins get a little smaller when zoomed out, and hovering one shows its company and city.
-- Click a pin for the operator, location, board ID and a one-click **Google Street View** link.
-- **Show:** Twin Cities, St. Cloud or all boards. Add `#stcloud` or `#all` to the link to open on that view.
-- **Search** a city, road or board ID; press Enter to zoom to the matches.
-- **Billboard companies:** click one to hide or show its boards (the numbers at the top follow); Show all resets. **One color / By company** switches the pins between SPA blue and one color per company (with a key).
-- **Present full screen:** hides the panel behind a small Saint Paul Agency badge with the view buttons; Exit or Esc returns.
-- **Map:** Streets (default) or Light, a quieter map that makes the pins stand out.
-- Saint Paul Agency branding only. The panel fits laptop screens; on phones it folds away.
+## The 3D map (main link)
 
-**3D map (preview):** https://saintpaulagency.github.io/spa-billboard-map/3d/
-
-- Opens on a turning globe and flies down into the Twin Cities on a tilted night map with 3D buildings and glowing highways.
+- Opens on a turning globe and flies down into the Twin Cities on a tilted night map with 3D buildings and glowing highways. **Skip intro** jumps straight in.
 - Each board is a small billboard on a pole (14' x 48' bulletin shape) drawn by the map itself, so it stays smooth. Sample ads (Your Ad Here, Saint Paul Agency, Grand Opening and so on; nothing client-specific) hold 8 seconds each, like a real digital board, and change in staggered waves.
+- Click a board for the company, location, board ID and a one-click **Google Street View** link.
 - **Your ad:** choose an ad image (1400 x 400 fits best) to show it on every board, or mixed in with the samples. It stays in that browser; nothing is uploaded.
 - **Near address:** type an address or business; it circles 3, 5 or 10 miles, dims the boards outside, and lists the count by company and the closest boards. Address lookup uses OpenStreetMap's free geocoder.
 - **Guided tour** flies between the busiest areas with captions; **Present** goes full screen and slowly circles the city.
-- Same views, search, company filters, colors and Street View links as the classic map, plus **3D / 2D**, **Night / Day** and **SPA blue / By company** switches. If a computer can't keep up, it lowers the drawing resolution by itself.
-- It reads the same `data/boards.js`, so updating the boards updates both maps.
+- Views (Twin Cities, St. Cloud, All), search, company filters, **3D / 2D**, **Night / Day** and **SPA blue / By company** switches. If a computer can't keep up, it lowers the drawing resolution by itself.
+
+## The classic map (/classic/)
+
+- Every board is a blue pin; boards on the same pole share one pin with a count. Click a pin for the details and Street View.
+- Same views, search, company filters, One color / By company pins, Streets / Light map, and Present full screen.
+- Use it on older computers, or if the 3D map runs slowly.
+
+Both maps read the same `data/boards.js`, so updating the boards updates both.
 
 ## Updating the boards
 
