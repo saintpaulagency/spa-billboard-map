@@ -15,7 +15,8 @@ Columns are found by their header names (any order, any capitalization):
     longitude    "Direction 2" / "Longitude" / "Lon" / "Lng"
     city         "City/State" / "City"
     zip          "Zip" / "Zip Code"
-Rows without numeric coordinates are skipped and listed.
+Rows without numeric coordinates are skipped and listed. A board listed twice (same company and board code
+within about 200 m) is kept once.
 """
 import csv, json, os, re, sys
 from datetime import date
@@ -91,6 +92,14 @@ def main(path, title=None):
             'city': city, 'zip': str(int(zp)) if isinstance(zp, (int, float)) else clean(zp),
             'lat': round(lat, 6), 'lon': round(lon, 6),
         })
+    # The same board can be listed twice (e.g. under two zip codes, or by two sellers): same company and board code
+    # within about 200 m counts as one board. The first listing is kept.
+    unique, dupes = [], []
+    for x in boards:
+        twin = next((u for u in unique if x['code'] and u['code'] == x['code'] and u['operator'] == x['operator']
+                     and abs(u['lat'] - x['lat']) < 0.002 and abs(u['lon'] - x['lon']) < 0.0025), None)
+        (dupes if twin else unique).append(x)
+    boards = unique
     views = []
     for v in VIEWS:
         a, b, c, d = v['box']
@@ -100,7 +109,7 @@ def main(path, title=None):
     out = {
         'title': title or 'Digital billboard inventory',
         'source': os.path.basename(path), 'built': date.today().isoformat(),
-        'views': views, 'boards': boards,
+        'views': views, 'boards': boards, 'listed': len(boards) + len(dupes), 'repeats': len(dupes),
     }
     os.makedirs(os.path.join(ROOT, 'data'), exist_ok=True)
     with open(os.path.join(ROOT, 'data', 'boards.js'), 'w') as f:
@@ -112,7 +121,7 @@ def main(path, title=None):
         for x in boards:
             w.writerow([x['id'], x['operator'], x['code'], x['where'], x['city'], x['zip'], x['lat'], x['lon']])
     spots = len({(x['lat'], x['lon']) for x in boards})
-    print('boards %d, map spots %d, skipped rows %s' % (len(boards), spots, skipped or 'none'))
+    print('boards %d, map spots %d, repeats left out %d %s, skipped rows %s' % (len(boards), spots, len(dupes), [d['code'] for d in dupes], skipped or 'none'))
     print('views', [(v['label'], v['count']) for v in views])
 
 

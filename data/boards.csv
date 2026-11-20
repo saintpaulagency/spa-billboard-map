@@ -26,8 +26,6 @@ MN0000410,Clear Channel Outdoor,MSP090083,Between Hwy 13 & Pilot Knob on Southsi
 15043720,Clear Channel Outdoor,MSP090082,Between Hwy 13 & Pilot Knob on Southside of 494,"Eagan, MN",55121,44.860571,-93.170819
 15043719,Clear Channel Outdoor,MSP007080,Northbound Hwy 77 North of Hwy 13,"Eagan, MN",55122,44.821349,-93.223618
 MN0000409,Clear Channel Outdoor,MSP007085,Northbound Hwy 77 North of Hwy 13,"Eagan, MN",55122,44.821328,-93.223591
-30473007,Clear Channel Outdoor,MSP090124,Westbound 494 east of Hwy 77,"Bloomington, MN",55330,44.862837,-93.240237
-30585187,Clear Channel Outdoor,MSP090123,Northside of 494 between 24th & Hwy 77,"Bloomington, MN",55330,44.862837,-93.240237
 MN0000194,Outfront Media US,DBP-MIN22,Northbound Hwy 169 north of Hwy 10/101,"Elk River, MN",55330,45.297403,-93.551958
 463910,Apparatix,FRA-FRANKLIN-OUTDOOR-318B-RHR,Northbound Hwy 10 @ Proctor,"Elk River, MN",55330,45.30772,-93.57696
 MN0000398,Apparatix,FRA-324A,Southbound 169 north of Hwy 10,"Elk River, MN",55330,45.29947,-93.55377
@@ -56,7 +54,6 @@ IDIG-IDRGBVHNF,Clear Channel Outdoor,MSP091910,Hennepin Ave. & 7th Street,"Minne
 7401338,Clear Channel Outdoor,MSP090127,NW corner of Hwy 494 & 34th Ave. S.,"Minneapolis, MN",55450,44.862818,-93.226306
 FRA-70B,Clear Channel Outdoor,MSP092010,"SW corner of Hennepin and 7th, dwntn","Minneapolis, MN",55403,44.9778,-93.27544
 30776283,Clear Channel Outdoor,MSP092460,Northbound 35W at Lake Street,"Minneapolis, MN",55408,44.948201,-93.273904
-MN0000407,Clear Channel Outdoor,MSP091910,Hennepin Ave. & 7th Street,"Minneapolis, MN",55403,44.978191,-93.275479
 IDIG-IDRGBVHSF,Clear Channel Outdoor,MSP007270,SW corner of US Bank Stadium,"Minneapolis, MN",55415,44.972889,-93.260099
 597990,Clear Channel Outdoor,MSP091785,SW corner of Hennepin & 9th,"Minneapolis, MN",55403,44.976432,-93.277305
 FRA-383B,Outfront Media US,DBP-MIN15,35W Southbound at Hennepin Ave.,"Minneapolis, MN",55413,44.991774,-93.237327
@@ -107,7 +104,6 @@ MN0000344,Outfront Media US,DBP-MIN24,Hwy 77 Northbound at Cargo Rd.,"Richfield,
 15473373,Outfront Media US,DBP-MIN01,Southbound I94 south of 101/94,"Rogers, MN",55374,45.188538,-93.543794
 463924,IBOUSA,IDIG-IDRGBRGRSWF,Eastbound I94 north of 101,"Rogers, MN",55374,45.200089,-93.565986
 MN0000342,Outfront Media US,DBP-MIN18,I94 north of Hwy 101,"Rogers, MN",55374,45.200847,-93.565269
-IDIG-IDRGBLFNF1,Outfront Media US,DBP-MIN18,I94 north of Hwy 101,"Rogers, MN",55374,45.200882,-93.565316
 FRA-21B,Clear Channel Outdoor,MSP091222,Westbound I94 south of 141st Ave.,"Rogers, MN",55374,45.206813,-93.576471
 30609453,Clear Channel Outdoor,MSP061870,I 94 eastbound ramp at Lexington,"Shoreview, MN",55126,45.058164,-93.142726
 50264588,Clear Channel Outdoor,MSP092825,Eastbound 694 between victoria & Rice,"Shoreview, MN",55126,45.051954,-93.118798
