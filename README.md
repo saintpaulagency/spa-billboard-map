@@ -16,9 +16,11 @@ An interactive map of digital billboard locations for Saint Paul Agency presenta
 **3D map (preview):** https://saintpaulagency.github.io/spa-billboard-map/3d/
 
 - Opens on a turning globe and flies down into the Twin Cities on a tilted night map with 3D buildings and glowing highways.
-- Each board is a small blue billboard on a pole, playing a loop of sample ads (Your Ad Here, Saint Paul Agency, Grand Opening and so on; nothing client-specific), with a pulsing glow on the ground under it.
+- Each board is a small billboard on a pole (14' x 48' bulletin shape) drawn by the map itself, so it stays smooth. Sample ads (Your Ad Here, Saint Paul Agency, Grand Opening and so on; nothing client-specific) hold 8 seconds each, like a real digital board, and change in staggered waves.
+- **Your ad:** choose an ad image (1400 x 400 fits best) to show it on every board, or mixed in with the samples. It stays in that browser; nothing is uploaded.
+- **Near address:** type an address or business; it circles 3, 5 or 10 miles, dims the boards outside, and lists the count by company and the closest boards. Address lookup uses OpenStreetMap's free geocoder.
 - **Guided tour** flies between the busiest areas with captions; **Present** goes full screen and slowly circles the city.
-- Same views, search, company filters, colors and Street View links as the classic map, plus **3D / 2D**, **Night / Day** and **SPA blue / By company** switches.
+- Same views, search, company filters, colors and Street View links as the classic map, plus **3D / 2D**, **Night / Day** and **SPA blue / By company** switches. If a computer can't keep up, it lowers the drawing resolution by itself.
 - It reads the same `data/boards.js`, so updating the boards updates both maps.
 
 ## Updating the boards

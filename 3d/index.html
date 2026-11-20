@@ -106,42 +106,47 @@ body.intro .panel, body.intro .hud-top { opacity: 0; transform: translateY(-8px)
 .p-foot a { font-weight: 700; text-decoration: none; white-space: nowrap; }
 .p-foot .src { display: block; color: var(--muted); font-size: 13px; font-weight: 500; }
 
-/* ---------- billboards ---------- */
-.bb { --s: 1; --h: 1; position: relative; width: 58px; height: 52px; cursor: pointer; transform: scale(calc(var(--s) * var(--h))); transform-origin: 50% 100%; transition: transform .18s; will-change: transform; }
-.bb .scr { position: absolute; left: 0; top: 0; width: 58px; height: 33px; border-radius: 4px; overflow: hidden; background: linear-gradient(135deg, #0A3D91, #1B7FE0);
-  border: 2.5px solid var(--c); box-shadow: 0 0 10px var(--c), 0 0 22px color-mix(in srgb, var(--c) 55%, transparent), inset 0 0 0 1px rgba(0, 0, 0, .6); }
-.bb .scr::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .05) 0 1px, transparent 1px 3px), linear-gradient(160deg, rgba(255, 255, 255, .22), transparent 45%); }
-.bb .pole { position: absolute; left: 50%; top: 33px; width: 4px; height: 17px; margin-left: -2px; background: linear-gradient(90deg, #6E85B2, #D5E2FA 45%, #5B6F98); border-radius: 0 0 2px 2px; }
-.bb .cnt { position: absolute; top: -8px; right: -9px; min-width: 18px; height: 18px; padding: 0 4px; border-radius: 9px; background: #fff; color: #04102A; font: 700 11px/18px var(--font); text-align: center; box-shadow: 0 0 10px var(--c); z-index: 2; }
-.bb:hover, .bb:focus-visible, .bb.sel { --h: 1.9; }
-.bb:focus-visible { outline: none; }
-.bb:focus-visible .scr { border-color: #fff; }
-.bb.dim { opacity: .25; }
-.maplibregl-marker:has(.bb:hover), .maplibregl-marker:has(.bb.sel), .maplibregl-marker:has(.bb:focus-visible) { z-index: 5; }
-.far .bb { display: none; }
-
-/* the ads */
-.ads { position: absolute; inset: 0; }
-.ads { animation: adstrip 14.4s ease-in-out infinite; animation-delay: var(--d, 0s); will-change: transform; }
-.ad { position: absolute; left: 0; top: calc(var(--i) * 100%); width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; line-height: 1.02; letter-spacing: .02em;
-  font-family: var(--font); color: #fff; }
-.ad b { font-size: 9px; font-weight: 700; } .ad span { font-size: 7px; font-weight: 700; }
-.ad img { width: 15px; height: 15px; border-radius: 50%; background: #fff; padding: 1px; margin-bottom: 1px; }
-.a-cyan { background: linear-gradient(135deg, #0A3D91, #19A8FF); }
-.a-spa { background: linear-gradient(135deg, #FFFFFF, #DCE9FF); color: #0E1830; }
-.a-sun { background: linear-gradient(135deg, #FF7A18, #FFB800); color: #1A0B00; }
-.a-red { background: linear-gradient(135deg, #B0123B, #FF3D5A); }
-.a-lime { background: linear-gradient(135deg, #0B6B3A, #22C55E); }
-.a-violet { background: linear-gradient(135deg, #4C1D95, #A855F7); }
-@keyframes adstrip { 0%, 14.5% { transform: translateY(0); } 16.67%, 31.17% { transform: translateY(-100%); } 33.33%, 47.83% { transform: translateY(-200%); }
-  50%, 64.5% { transform: translateY(-300%); } 66.67%, 81.17% { transform: translateY(-400%); } 83.33%, 97.83% { transform: translateY(-500%); } 100% { transform: translateY(-600%); } }
-/* the glow ring on the ground under each board (drawn by the graphics card, no map redraws) */
-.bb .ring { position: absolute; left: 50%; bottom: -7px; width: 46px; height: 16px; margin-left: -23px; border: 2px solid var(--c); border-radius: 50%; opacity: 0; pointer-events: none;
-  animation: ring 2.4s ease-out infinite; animation-delay: var(--rd, 0s); will-change: transform, opacity; }
-@keyframes ring { 0% { transform: scale(.2); opacity: .9; } 100% { transform: scale(1.5); opacity: 0; } }
-/* lighter mode for slower computers: no rings; ads play only on the board you point at */
-.lite .bb .ring { display: none; }
-.lite .bb:not(:hover):not(.sel) .ads { animation-play-state: paused; }
+/* ---------- side cards: Your ad, Near an address ---------- */
+.card { position: absolute; z-index: 520; top: 16px; left: 412px; width: 360px; max-height: calc(100% - 32px); overflow: auto; background: var(--glass); border: 1px solid var(--edge-2);
+  border-radius: 18px; box-shadow: var(--shadow), 0 0 26px rgba(57, 198, 255, .15); padding: 16px 18px; }
+.card[hidden] { display: none; }
+.card-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+.card-head b { font-size: 18px; font-weight: 700; }
+.card-x { border: 0; background: none; font-size: 26px; line-height: 1; width: 34px; height: 34px; border-radius: 10px; cursor: pointer; }
+.card-x:hover { background: rgba(57, 198, 255, .12); }
+.card-note { font-size: 14px; font-weight: 500; margin: 0 0 12px; line-height: 1.45; }
+.card .seg { margin-top: 12px; }
+.card-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+.card-row .btn[hidden] { display: none; }
+.ad-drop { position: relative; aspect-ratio: 3.5 / 1; border: 2px dashed var(--edge-2); border-radius: 12px; overflow: hidden; display: grid; place-items: center; cursor: pointer; background: rgba(4, 10, 24, .5); }
+.ad-drop.has { border-style: solid; border-color: var(--cyan); box-shadow: 0 0 16px rgba(57, 198, 255, .35); }
+.ad-drop.over { border-color: var(--cyan); background: rgba(57, 198, 255, .12); }
+.ad-drop canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ad-drop span { position: relative; font-size: 14px; font-weight: 600; text-align: center; padding: 0 10px; }
+.ad-drop.has span { display: none; }
+.near-form { display: flex; gap: 8px; }
+.near-form input { flex: 1; min-width: 0; border: 1px solid var(--edge); border-radius: 12px; padding: 10px 12px; font-size: 16px; font-weight: 500; background: rgba(4, 10, 24, .55); color: #fff; }
+.near-form input::placeholder { color: #fff; opacity: 1; }
+.near-form input:focus { outline: none; border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(57, 198, 255, .2); }
+.near-form .btn { flex: none; padding: 10px 16px; }
+.near-out { margin-top: 12px; font-size: 15px; }
+.near-out:empty { display: none; }
+.near-sum b { font-size: 30px; font-weight: 800; line-height: 1; margin-right: 6px; text-shadow: 0 0 16px rgba(57, 198, 255, .55); }
+.near-sum .where { display: block; font-size: 13.5px; font-weight: 500; margin-top: 4px; }
+.near-ops { margin-top: 10px; display: grid; gap: 3px; }
+.near-ops div { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+.near-ops i { width: 10px; height: 10px; border-radius: 50%; flex: none; box-shadow: 0 0 8px currentColor; }
+.near-ops span { margin-left: auto; font-weight: 700; }
+.near-list { margin-top: 10px; border-top: 1px solid var(--edge); padding-top: 8px; }
+.near-list .label { margin-bottom: 4px; }
+.near-list button { display: block; width: 100%; text-align: left; border: 0; background: none; border-radius: 9px; padding: 5px 6px; cursor: pointer; font-size: 14px; font-weight: 500; line-height: 1.35; }
+.near-list button:hover { background: rgba(57, 198, 255, .1); }
+.near-list button b { color: var(--cyan); font-weight: 800; margin-right: 4px; }
+.near-pin { width: 22px; height: 22px; border-radius: 50%; background: #fff; border: 5px solid var(--cyan); box-shadow: 0 0 0 4px rgba(57, 198, 255, .35), 0 0 24px var(--cyan); }
+.btn .short { display: none; }
+.btn.on { border-color: var(--cyan); box-shadow: 0 0 14px rgba(57, 198, 255, .45); background: rgba(57, 198, 255, .16); }
+body.present .card { display: none; }
+@media (min-width: 641px) and (max-width: 1299px) { .card { left: 16px; width: 384px; } }   /* narrower screens: the card sits over the panel, leaving the map clear */
 
 /* hover label */
 .tip { position: fixed; z-index: 600; pointer-events: none; background: rgba(6, 14, 32, .92); border: 1px solid var(--edge-2); color: #fff; font-size: 15px; font-weight: 600; padding: 6px 12px;
@@ -157,8 +162,9 @@ body.intro .panel, body.intro .hud-top { opacity: 0; transform: translateY(-8px)
 .maplibregl-popup-anchor-right .maplibregl-popup-tip { border-left-color: rgba(8, 17, 38, .94); }
 .maplibregl-popup-close-button { font-size: 22px; width: 32px; height: 32px; color: var(--text-2); border-radius: 0 16px 0 8px; }
 .maplibregl-popup-close-button:hover { background: rgba(57, 198, 255, .12); color: #fff; }
-.pp-screen { position: relative; height: 92px; border-radius: 10px; overflow: hidden; margin: 2px 26px 10px 0; border: 2px solid #CFE0FF; box-shadow: 0 0 16px rgba(57, 198, 255, .35); }
-.pp-screen .ad b { font-size: 20px; } .pp-screen .ad span { font-size: 14px; } .pp-screen .ad img { width: 34px; height: 34px; padding: 2px; margin-bottom: 3px; }
+.pp-screen { position: relative; aspect-ratio: 3.5 / 1; border-radius: 8px; overflow: hidden; margin: 2px 30px 12px 0; border: 3px solid var(--c, var(--cyan)); box-shadow: 0 0 16px var(--c, var(--cyan)); background: #020A1E; }
+.pp-screen canvas { position: absolute; inset: 0; width: 100%; height: 100%; transition: opacity .35s; }
+.pp-screen.yours::after { content: "YOUR AD"; }
 .pp-screen::after { content: "SAMPLE AD"; position: absolute; right: 6px; bottom: 4px; font-size: 10px; font-weight: 800; letter-spacing: .1em; color: #fff; text-shadow: 0 1px 3px rgba(0, 0, 0, .6); }
 .pp-head { font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--cyan); margin: 0 0 6px; }
 .pp-list { max-height: 210px; overflow: auto; }
@@ -251,6 +257,8 @@ body.present.by-ops .legend { display: block; }
   .op { padding: 2px 5px; } .ops { margin-bottom: 6px; }
   .rows .seg button { padding: 5px 3px; }
   .p-foot { margin-top: 6px; padding-top: 6px; } .p-foot .src { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .btns { grid-template-columns: repeat(4, 1fr); gap: 6px; } .btns .btn { padding: 8px 4px; font-size: 14px; gap: 5px; } .btns .btn svg { width: 15px; height: 15px; }
+  .btn .full { display: none; } .btn .short { display: inline; }
 }
 @media (max-width: 1100px) { .b-btns .v { display: none; } }
 /* ---------- phones ---------- */
@@ -273,11 +281,13 @@ body.present.by-ops .legend { display: block; }
   .legend { left: 10px; bottom: 30px; }
   .caption { bottom: 24px; min-width: 0; width: calc(100% - 40px); } .caption .t { font-size: 23px; } .caption .s { font-size: 15px; }
   .stopTour { right: 12px; bottom: auto; top: 96px; }
+  .card { top: auto; bottom: 10px; left: 10px; right: 10px; width: auto; max-height: 46%; padding: 12px 14px; }
+  .card-note { font-size: 13px; margin-bottom: 8px; } .card .seg { margin-top: 8px; } .near-out { margin-top: 8px; }
   .maplibregl-ctrl-top-right { top: 86px; }
   .maplibregl-ctrl-scale { display: none; }
   body.touring .maplibregl-ctrl-top-right { display: none; }
 }
-@media (prefers-reduced-motion: reduce) { .ads, .bb .ring { animation: none; } .logo::after { animation: none; } .bb { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .logo::after { animation: none; } }
 </style>
 </head>
 <body class="intro">
@@ -308,8 +318,10 @@ body.present.by-ops .legend { display: block; }
       <div class="stat"><b id="sOps">0</b><span>companies</span></div>
     </div>
     <div class="btns">
-      <button class="btn primary" id="tour" type="button"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>Guided tour</button>
+      <button class="btn primary" id="tour" type="button"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg><span class="full">Guided tour</span><span class="short">Tour</span></button>
       <button class="btn" id="present" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>Present</button>
+      <button class="btn" id="adBtn" type="button" aria-controls="adCard" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4" width="19" height="10" rx="1.5"/><path d="M12 14v6M8.5 20h7"/></svg>Your ad</button>
+      <button class="btn" id="nearBtn" type="button" aria-controls="nearCard" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="2.5" fill="currentColor"/></svg><span class="full">Near address</span><span class="short">Nearby</span></button>
     </div>
     <div class="seg views" id="views" role="group" aria-label="Show"></div>
     <div class="search">
@@ -328,6 +340,22 @@ body.present.by-ops .legend { display: block; }
       <a href="https://saintpaulagency.com" target="_blank" rel="noopener">saintpaulagency.com</a> · <a href="tel:+16125998422">(612) 599-8422</a> · <a href="../">Classic map</a></div>
   </div>
 </aside>
+
+<section class="card" id="adCard" hidden aria-label="Your ad on the boards">
+  <div class="card-head"><b>Your ad on the boards</b><button class="card-x" type="button" data-close aria-label="Close">×</button></div>
+  <p class="card-note">Pick an ad image and every billboard shows it. Billboard size (1400 × 400) fits best. It stays on this computer; nothing is uploaded.</p>
+  <div class="ad-drop" id="adDrop" role="button" tabindex="0" aria-label="Choose an ad image"><canvas id="adPrev" width="700" height="200"></canvas><span>Click to choose an image, or drop one here</span></div>
+  <input type="file" id="adFile" accept="image/*" hidden>
+  <div class="card-row"><button class="btn primary" id="adPick" type="button">Choose image</button><button class="btn" id="adRemove" type="button" hidden>Remove</button></div>
+  <div class="seg" id="adMode" role="group" aria-label="Where your ad shows"><button type="button" data-a="every">On every board</button><button type="button" data-a="mixed">Mixed with samples</button></div>
+</section>
+
+<section class="card" id="nearCard" hidden aria-label="Boards near an address">
+  <div class="card-head"><b>Boards near an address</b><button class="card-x" type="button" data-close aria-label="Close">×</button></div>
+  <form class="near-form" id="nearForm"><input id="nearQ" type="search" placeholder="Address, business or city" aria-label="Address, business or city" autocomplete="off"><button class="btn primary" type="submit">Find</button></form>
+  <div class="seg" id="radius" role="group" aria-label="Distance"><button type="button" data-r="3">3 miles</button><button type="button" data-r="5">5 miles</button><button type="button" data-r="10">10 miles</button></div>
+  <div class="near-out" id="nearOut" aria-live="polite"></div>
+</section>
 
 <div class="badge" id="badge" aria-label="Saint Paul Agency billboard map">
   <div class="logo"><img src="../assets/img/spa-logo.png" alt="Saint Paul Agency logo"></div>
@@ -379,8 +407,23 @@ body.present.by-ops .legend { display: block; }
   const colorOf = s => colorMode === 'ops' ? opColor[shown(s)[0] ? shown(s)[0].operator : s.boards[0].operator] : SPA;
 
   // the sample ads every billboard plays (generic, no client)
-  const ADS = [['YOUR AD', 'HERE', 'a-cyan'], ['SAINT PAUL', 'AGENCY', 'a-spa', 1], ['GRAND', 'OPENING', 'a-sun'], ['BIG SALE', '50% OFF', 'a-red'], ['NOW', 'HIRING', 'a-lime'], ['OPEN', '24/7', 'a-violet']];
-  const adsHtml = d => `<div class="ads" style="--d:${d}s">` + ADS.concat([ADS[0]]).map((a, i) => `<div class="ad ${a[2]}" style="--i:${i}">${a[3] ? '<img src="../assets/img/spa-logo.png" alt="">' : ''}<b>${a[0]}</b><span>${a[1]}</span></div>`).join('') + '</div>';
+  const ADS = [
+    { k: '0', a: 'YOUR AD HERE', b: 'THIS SPACE AVAILABLE', g: ['#0A3D91', '#19A8FF'], t: '#fff' },
+    { k: '1', a: 'SAINT PAUL AGENCY', b: 'ADVERTISING · MARKETING', g: ['#FFFFFF', '#DCE9FF'], t: '#0E1830', logo: true },
+    { k: '2', a: 'GRAND OPENING', b: 'THIS SATURDAY', g: ['#FF7A18', '#FFB800'], t: '#1A0B00' },
+    { k: '3', a: 'BIG SALE', b: '50% OFF EVERYTHING', g: ['#B0123B', '#FF3D5A'], t: '#fff' },
+    { k: '4', a: 'NOW HIRING', b: 'APPLY TODAY', g: ['#0B6B3A', '#22C55E'], t: '#fff' },
+    { k: '5', a: 'OPEN 24/7', b: 'NEXT EXIT', g: ['#4C1D95', '#A855F7'], t: '#fff' },
+  ];
+  const logoImg = new Image(); logoImg.src = '../assets/img/spa-logo.png';
+  // your own ad (kept in this browser only)
+  let custom = null, customV = 0;
+  let adMode = store.get('spa3dAdMode') === 'mixed' ? 'mixed' : 'every';
+  const loadImg = src => new Promise((ok, no) => { const im = new Image(); im.onload = () => ok(im); im.onerror = no; im.src = src; });
+  const savedAd = store.get('spa3dAd');
+  if (savedAd) { try { custom = { img: await loadImg(savedAd), key: 'C' + (++customV) }; } catch (e) {} }
+  // the billboard pictures use Poppins and the logo: have them ready before the first board is drawn
+  await Promise.race([Promise.all([document.fonts.load('800 20px Poppins'), document.fonts.load('700 20px Poppins'), logoImg.decode().catch(() => {})]), sleep(2500)]);
 
   // ---------- map styles: night (our own colors on OpenFreeMap's dark map) and day ----------
   const STYLE_URL = { night: 'https://tiles.openfreemap.org/styles/dark', day: 'https://tiles.openfreemap.org/styles/liberty' };
@@ -463,25 +506,114 @@ body.present.by-ops .legend { display: block; }
   map.on('error', e => console.warn('map:', e && e.error ? e.error.message : e));   // a missing tile shouldn't stop the show
   setTimeout(() => { if (!loaded) fail('The map is slow to load. Check the internet connection, or use the backup PDF.'); }, 20000);
 
-  // ---------- ground glow under every board (drawn by the map, so it lies flat on the ground) ----------
-  function spotsGeo() {
-    return { type: 'FeatureCollection', features: spots.filter(s => shown(s).length).map(s => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [s.lon, s.lat] },
-      properties: { c: colorOf(s), n: shown(s).length, g: s.i % 3 } })) };
+  // ---------- the ground glow and the billboards: all drawn by the map itself (on the graphics card) ----------
+  const R = 3;                                              // billboard pictures are drawn 3x for sharpness
+  const BW = 104, BH = 60, SX = 8, SY = 10, SW = 88, SH = 25;   // picture size and the screen inside it (3.5:1, like a 14' x 48' bulletin)
+  const SIZE_STOPS = [5.5, 0.36, 8, 0.5, 10, 0.68, 12, 0.86, 14, 1.02, 16, 1.18], HL = 1.8;
+  const sizeAt = z => { const st = SIZE_STOPS; if (z <= st[0]) return st[1]; for (let i = 2; i < st.length; i += 2) if (z <= st[i]) { const t = (z - st[i - 2]) / (st[i] - st[i - 2]); return st[i - 1] + t * (st[i + 1] - st[i - 1]); } return st[st.length - 1]; };
+  const sizeExpr = k => ['interpolate', ['linear'], ['zoom']].concat(SIZE_STOPS.map((v, i) => i % 2 ? +(v * k).toFixed(3) : v));
+  const HOLD = 8;                                           // seconds each ad stays up, like a real digital billboard
+  let tick = 0;
+  const colorKey = s => colorMode === 'ops' ? 'o' + OPS.indexOf((shown(s)[0] || s.boards[0]).operator) : 'spa';
+  const keyColor = c => c === 'spa' ? SPA : PALETTE[+c.slice(1) % PALETTE.length];
+  const adKeys = () => ADS.map(a => a.k).concat(custom && adMode === 'mixed' ? [custom.key] : []);
+  // which ad a board shows right now: every board holds an ad for 8 s; a quarter of them change every 2 s
+  const adNow = s => { if (custom && adMode === 'every') return custom.key; const k = adKeys(); return k[(Math.floor((tick + (s.i * 2) % HOLD) / HOLD) + s.i) % k.length]; };
+  function imgExpr() {
+    const ad = custom && adMode === 'every' ? custom.key
+      : ['at', ['%', ['+', ['floor', ['/', ['+', tick, ['get', 'ph']], HOLD]], ['get', 'off']], adKeys().length], ['literal', adKeys()]];
+    return ['concat', 'bb|', ['get', 'c'], '|', ad, '|', ['to-string', ['get', 'n']]];
   }
+  function spotsGeo() {
+    return { type: 'FeatureCollection', features: !started ? [] : spots.filter(s => shown(s).length).map(s => ({ type: 'Feature', id: s.i, geometry: { type: 'Point', coordinates: [s.lon, s.lat] },
+      properties: { c: colorKey(s), col: colorOf(s), n: Math.min(shown(s).length, 9), ph: (s.i * 2) % HOLD, off: s.i } })) };
+  }
+
+  // drawing an ad into a rectangle (also used for the big screen in the popup and the preview)
+  function fitFont(ctx, text, weight, size, maxW) { let z = size; do { ctx.font = `${weight} ${z}px Poppins, sans-serif`; z -= size * 0.05; } while (ctx.measureText(text).width > maxW && z > 2); }
+  function drawAd(ctx, key, x, y, w, h) {
+    ctx.save(); ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip();
+    if (key[0] === 'C' && custom) {
+      const im = custom.img, sc = Math.max(w / im.width, h / im.height);
+      ctx.fillStyle = '#fff'; ctx.fillRect(x, y, w, h);
+      ctx.drawImage(im, x + (w - im.width * sc) / 2, y + (h - im.height * sc) / 2, im.width * sc, im.height * sc);
+    } else {
+      const ad = ADS.find(a => a.k === key) || ADS[0];
+      const g = ctx.createLinearGradient(x, y, x + w, y + h); g.addColorStop(0, ad.g[0]); g.addColorStop(1, ad.g[1]);
+      ctx.fillStyle = g; ctx.fillRect(x, y, w, h);
+      let left = x, avail = w;
+      if (ad.logo && logoImg.naturalWidth) {
+        const d = h * 0.8, lx = x + h * 0.12;
+        ctx.drawImage(logoImg, lx, y + (h - d * 228 / 240) / 2, d, d * 228 / 240);
+        left = lx + d; avail = x + w - left;
+      }
+      ctx.fillStyle = ad.t; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+      const cx = left + avail / 2;
+      fitFont(ctx, ad.a, 800, h * 0.42, avail * 0.88); ctx.fillText(ad.a, cx, y + h * 0.56);
+      fitFont(ctx, ad.b, 700, h * 0.2, avail * 0.86); ctx.fillText(ad.b, cx, y + h * 0.85);
+    }
+    const sh = ctx.createLinearGradient(x, y, x, y + h); sh.addColorStop(0, 'rgba(255,255,255,.2)'); sh.addColorStop(0.5, 'rgba(255,255,255,0)');
+    ctx.fillStyle = sh; ctx.fillRect(x, y, w, h);
+    ctx.restore();
+  }
+  // one billboard picture: glowing frame, screen, catwalk, pole, and a count badge when several boards share the spot
+  const cv = document.createElement('canvas'); cv.width = BW * R; cv.height = BH * R;
+  const cx2 = cv.getContext('2d', { willReadFrequently: true });
+  function drawBoard(color, key, n) {
+    const c = cx2; c.setTransform(1, 0, 0, 1, 0, 0); c.clearRect(0, 0, cv.width, cv.height); c.setTransform(R, 0, 0, R, 0, 0);
+    const pole = c.createLinearGradient(BW / 2 - 2.5, 0, BW / 2 + 2.5, 0); pole.addColorStop(0, '#5B6F98'); pole.addColorStop(0.45, '#D5E2FA'); pole.addColorStop(1, '#4E6189');
+    c.fillStyle = pole; c.fillRect(BW / 2 - 2.5, SY + SH + 2, 5, BH - (SY + SH + 2));
+    c.fillStyle = '#2A3A5E'; c.fillRect(SX + 6, SY + SH + 1.5, SW - 12, 2.2);                     // catwalk
+    c.save(); c.shadowColor = color; c.shadowBlur = 9; c.fillStyle = color;
+    c.beginPath(); c.roundRect(SX - 2.5, SY - 2.5, SW + 5, SH + 5, 3); c.fill(); c.restore();
+    drawAd(c, key, SX, SY, SW, SH);
+    if (n > 1) {
+      c.save(); c.shadowColor = color; c.shadowBlur = 6; c.fillStyle = '#fff';
+      c.beginPath(); c.arc(SX + SW - 1, SY - 1, 7.5, 0, Math.PI * 2); c.fill(); c.restore();
+      c.fillStyle = '#04102A'; c.font = '800 10px Poppins, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(String(n), SX + SW - 1, SY - 0.5);
+    }
+    return c.getImageData(0, 0, cv.width, cv.height);
+  }
+  map.on('styleimagemissing', e => {
+    if (!e.id.startsWith('bb|')) return;
+    const [, c, k, n] = e.id.split('|');
+    if (!map.hasImage(e.id)) map.addImage(e.id, drawBoard(keyColor(c), k, +n), { pixelRatio: R });
+  });
+
+  const layoutBB = k => ({ 'icon-image': imgExpr(), 'icon-size': sizeExpr(k), 'icon-anchor': 'bottom', 'icon-allow-overlap': true, 'icon-ignore-placement': true,
+    'icon-pitch-alignment': 'viewport', 'icon-rotation-alignment': 'viewport', 'symbol-z-order': 'viewport-y' });
+  const isOut = ['boolean', ['feature-state', 'out'], false], isHl = ['boolean', ['feature-state', 'hl'], false];
   function addOverlays() {
     if (map.getSource('spots')) return;
     map.addSource('spots', { type: 'geojson', data: spotsGeo() });
+    map.addSource('near', { type: 'geojson', data: nearGeo() });
     const night = mapStyle === 'night';
-    map.addLayer({ id: 'spot-glow', type: 'circle', source: 'spots', paint: { 'circle-color': ['get', 'c'], 'circle-blur': 1, 'circle-pitch-alignment': 'map',
-      'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 6, 8, 10, 11, 22, 15, 60], 'circle-opacity': night ? 0.55 : 0.35 } });
-    map.addLayer({ id: 'spot-core', type: 'circle', source: 'spots', paint: { 'circle-color': ['get', 'c'], 'circle-pitch-alignment': 'map',
+    map.addLayer({ id: 'near-fill', type: 'fill', source: 'near', filter: ['==', ['geometry-type'], 'Polygon'], paint: { 'fill-color': '#39C6FF', 'fill-opacity': night ? 0.08 : 0.1 } });
+    map.addLayer({ id: 'near-glow', type: 'line', source: 'near', filter: ['==', ['geometry-type'], 'Polygon'], paint: { 'line-color': '#39C6FF', 'line-width': 8, 'line-blur': 6, 'line-opacity': 0.5 } });
+    map.addLayer({ id: 'near-line', type: 'line', source: 'near', filter: ['==', ['geometry-type'], 'Polygon'], paint: { 'line-color': night ? '#9BE3FF' : '#1E6FFF', 'line-width': 2.5, 'line-dasharray': [2, 1.2] } });
+    map.addLayer({ id: 'spot-glow', type: 'circle', source: 'spots', paint: { 'circle-color': ['get', 'col'], 'circle-blur': 1, 'circle-pitch-alignment': 'map',
+      'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 6, 8, 10, 11, 22, 15, 60], 'circle-opacity': ['case', isOut, 0.08, night ? 0.55 : 0.35] } });
+    map.addLayer({ id: 'spot-core', type: 'circle', source: 'spots', paint: { 'circle-color': ['get', 'col'], 'circle-pitch-alignment': 'map', 'circle-opacity': ['case', isOut, 0.3, 1],
       'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 2, 9, 3, 14, 6], 'circle-stroke-color': night ? '#fff' : '#0E1830', 'circle-stroke-width': ['interpolate', ['linear'], ['zoom'], 3, 0.5, 12, 1.5] } });
+    map.addLayer({ id: 'bb', type: 'symbol', source: 'spots', minzoom: 5.5, layout: layoutBB(1), paint: { 'icon-opacity': ['case', isHl, 0, isOut, 0.22, 1] } });
+    map.addLayer({ id: 'bb-hl', type: 'symbol', source: 'spots', minzoom: 5.5, layout: layoutBB(HL), paint: { 'icon-opacity': ['case', isHl, 1, 0] } });
     map.setLayoutProperty('building-3d', 'visibility', dim3d ? 'visible' : 'none');
     if (quality === 0 && map.getLayer('motorway-glow')) map.setLayoutProperty('motorway-glow', 'visibility', 'none');
+    lastImg = '';
+    applyStates();
   }
   map.on('style.load', addOverlays);
+  let lastImg = '';
+  function updateAds() {                                    // move the ads on (one tiny update every 2 s, done off the main thread)
+    if (!map.getLayer('bb')) return;
+    const e = imgExpr(), j = JSON.stringify(e);
+    if (j === lastImg) return; lastImg = j;
+    map.setLayoutProperty('bb', 'icon-image', e); map.setLayoutProperty('bb-hl', 'icon-image', e);
+    if (selected) paintPopupAd();
+  }
+  setInterval(() => { if (!started || document.hidden) return; tick += 2; updateAds(); }, 2000);
 
-  // ---------- billboards ----------
+  // ---------- pointing at and clicking billboards ----------
   let query = '';
   const squash = t => t.replace(/[\s\-–.]/g, '');
   ALL.forEach(b => { b._hay = [b.operator, b.where, b.city, b.code, b.id, b.zip].join(' ').toLowerCase(); b._sq = squash(b._hay); });
@@ -491,88 +623,81 @@ body.present.by-ops .legend { display: block; }
   const gm = (lat, lon) => `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
   const icoEye = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="10" r="3"/><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/></svg>';
 
-  const popup = new maplibregl.Popup({ offset: [0, -58], maxWidth: '380px', focusAfterOpen: false });
-  let selected = null;
-  popup.on('close', () => { if (selected) selected.el.classList.remove('sel'); selected = null; });
+  const popup = new maplibregl.Popup({ maxWidth: '380px', focusAfterOpen: false, closeOnClick: false });
+  let selected = null, hoverId = null;
+  const popupOffset = () => [0, -Math.round(BH * sizeAt(map.getZoom()) * HL * 0.92 + 4)];
+  popup.on('close', () => { const s = selected; selected = null; if (s) setHl(s.i); });
+  function setHl(id) { if (id == null || !map.getSource('spots')) return; map.setFeatureState({ source: 'spots', id }, { hl: id === hoverId || (selected && selected.i === id) }); }
+  function applyStates() {
+    if (!map.getSource('spots')) return;
+    spots.forEach(s => map.setFeatureState({ source: 'spots', id: s.i }, { hl: s.i === hoverId || (selected && selected.i === s.i), out: !!(near && !s.inNear) }));
+  }
   function popupHtml(s) {
     const list = shown(s), dot = o => colorMode === 'ops' ? `<i style="background:${opColor[o]};color:${opColor[o]}"></i>` : '';
-    return `<div class="pp-screen">${adsHtml(-((s.i * 1.7) % 14.4).toFixed(1))}</div>` +
+    return `<div class="pp-screen" style="--c:${colorOf(s)}"><canvas width="${SW * 8}" height="${SH * 8}"></canvas></div>` +
       (list.length > 1 ? `<div class="pp-head">${list.length} boards at this spot</div>` : '') +
       '<div class="pp-list">' + list.map(b => `<div class="pp-board"><div class="pp-op">${dot(b.operator)}${esc(b.operator)}</div><div class="pp-where">${esc(b.where || 'Location not listed')}</div>` +
       `<div class="pp-meta">${esc(b.city)}${b.zip ? ' ' + esc(b.zip) : ''}${b.code ? ' · Board ' + esc(b.code) : ''}</div></div>`).join('') + '</div>' +
       `<div class="pp-btns"><a class="sv" href="${sv(s.lat, s.lon)}" target="_blank" rel="noopener">${icoEye}Open Street View</a><a href="${gm(s.lat, s.lon)}" target="_blank" rel="noopener">Google Maps</a></div>`;
   }
+  function paintPopupAd() {
+    const el = popup.getElement(), c = el && el.querySelector('.pp-screen canvas'); if (!c || !selected) return;
+    const k = adNow(selected); if (c.dataset.k === k) return; c.dataset.k = k;
+    c.parentNode.classList.toggle('yours', k[0] === 'C');
+    drawAd(c.getContext('2d'), k, 0, 0, c.width, c.height);
+  }
   function openSpot(s) {
     hideTip(); stopOrbit();
     const pt = map.project([s.lon, s.lat]), W = map.getContainer().clientWidth, H = map.getContainer().clientHeight;
-    const left = narrow() || presenting() ? 190 : 620, top = narrow() ? 470 : 460;
+    const card = document.querySelector('.card:not([hidden])'), left = narrow() || presenting() ? 190 : (card ? card.getBoundingClientRect().right : 400) + 230, top = narrow() ? 470 : 460;
     if (pt.x < left || pt.x > W - 200 || pt.y < top || pt.y > H - 40) {
       const target = narrow() ? [W / 2, H - 60] : [Math.max(left, W * 0.6), H * 0.8];
       map.easeTo({ center: [s.lon, s.lat], offset: [target[0] - W / 2, target[1] - H / 2], duration: 450 });
     }
-    if (selected) selected.el.classList.remove('sel');
-    selected = s; s.el.classList.add('sel');
-    popup.setLngLat([s.lon, s.lat]).setHTML(popupHtml(s)).addTo(map);
+    const prev = selected; selected = s; if (prev) setHl(prev.i); setHl(s.i);
+    popup.setLngLat([s.lon, s.lat]).setOffset(popupOffset()).setHTML(popupHtml(s)).addTo(map);
+    paintPopupAd();
   }
+  map.on('zoomend', () => { if (popup.isOpen()) popup.setOffset(popupOffset()); });
   const tip = document.getElementById('tip');
-  function showTip(s) {
-    if (narrow() || selected === s) return;
+  function showTip(s, pt) {
+    if (narrow() || (selected && selected.i === s.i)) { hideTip(); return; }
     const l = shown(s); if (!l.length) return;
     tip.innerHTML = l.length > 1 ? `<b>${l.length} boards</b> · ${esc(s.boards[0].city)}` : `<b>${esc(l[0].operator)}</b> · ${esc(l[0].city)}`;
-    // place it above the board as it will be once it has grown (it grows from its foot)
-    const r = s.el.getBoundingClientRect(), sc = parseFloat(s.el.style.getPropertyValue('--s')) || 1;
-    tip.style.left = (r.left + r.width / 2) + 'px'; tip.style.top = (r.bottom - 52 * sc * 1.9) + 'px'; tip.classList.add('on');
+    const r = map.getContainer().getBoundingClientRect(), p = map.project([s.lon, s.lat]);
+    tip.style.left = (r.left + p.x) + 'px'; tip.style.top = (r.top + p.y + popupOffset()[1] - 4) + 'px'; tip.classList.add('on');
   }
   function hideTip() { tip.classList.remove('on'); }
-
-  spots.forEach(s => {
-    const el = document.createElement('div');
-    const bb = document.createElement('div'); bb.className = 'bb'; bb.tabIndex = 0; bb.setAttribute('role', 'button');
-    bb.innerHTML = `<div class="ring" style="--rd:${-((s.i * 0.37) % 2.4).toFixed(2)}s"></div><div class="scr">${adsHtml(-((s.i * 1.7) % 14.4).toFixed(1))}</div><div class="pole"></div>`;
-    s.cnt = document.createElement('span'); s.cnt.className = 'cnt'; bb.appendChild(s.cnt);
-    el.appendChild(bb); s.el = bb;
-    bb.addEventListener('click', e => { e.stopPropagation(); openSpot(s); });
-    bb.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openSpot(s); } });
-    bb.addEventListener('mouseenter', () => showTip(s)); bb.addEventListener('mouseleave', hideTip);
-    bb.addEventListener('focus', () => showTip(s)); bb.addEventListener('blur', hideTip);
-    s.marker = new maplibregl.Marker({ element: el, anchor: 'bottom', pitchAlignment: 'viewport', rotationAlignment: 'viewport' }).setLngLat([s.lon, s.lat]);
-  });
-
-  // billboards stand up on the tilted map; nearer ones are bigger, far-away ones smaller
-  const zoomScale = z => z < 8.5 ? 0.5 : z < 9.6 ? 0.62 : z < 11 ? 0.78 : z < 12.5 ? 0.92 : 1.05;
-  let far = null;
-  function sizeBoards() {
-    const z = map.getZoom(), H = map.getContainer().clientHeight, pitch = map.getPitch() / 60, base = zoomScale(z);
-    if (far !== (z < 6.2)) { far = z < 6.2; map.getContainer().classList.toggle('far', far); }
-    if (far) return;
-    spots.forEach(s => {
-      if (!s.on) return;
-      const y = map.project([s.lon, s.lat]).y;
-      const persp = 1 - pitch * 0.55 * (1 - Math.min(1, Math.max(0, y / H)));
-      const v = Math.round(base * persp * 40) / 40;                 // steps of 0.025, so tiny changes don't restyle
-      if (v !== s.size) { s.size = v; s.el.style.setProperty('--s', v); }
-    });
+  function pick(pt) {
+    if (!map.getLayer('bb')) return null;
+    const f = map.queryRenderedFeatures(pt, { layers: ['bb'] })[0];
+    if (f) return spots[f.id];
+    if (hoverId != null) { const h = map.queryRenderedFeatures(pt, { layers: ['bb-hl'] }).find(x => x.id === hoverId); if (h) return spots[h.id]; }
+    if (selected) { const h = map.queryRenderedFeatures(pt, { layers: ['bb-hl'] }).find(x => x.id === selected.i); if (h) return spots[h.id]; }
+    return null;
   }
-  let lastSize = 0, sizeTimer = null;
-  map.on('move', () => {
-    hideTip();
-    const now = performance.now();
-    if (now - lastSize > 100) { lastSize = now; sizeBoards(); }
-    else if (!sizeTimer) sizeTimer = setTimeout(() => { sizeTimer = null; lastSize = performance.now(); sizeBoards(); }, 110);
+  let hoverFrame = 0;
+  map.on('mousemove', e => {
+    if (hoverFrame || map.isMoving()) return;
+    hoverFrame = requestAnimationFrame(() => {
+      hoverFrame = 0;
+      const s = pick(e.point), id = s ? s.i : null;
+      map.getCanvas().style.cursor = s ? 'pointer' : '';
+      if (id !== hoverId) { const was = hoverId; hoverId = id; setHl(was); setHl(id); }
+      if (s) showTip(s, e.point); else hideTip();
+    });
   });
-  map.on('moveend', sizeBoards);
+  map.getCanvas().addEventListener('mouseleave', () => { const was = hoverId; hoverId = null; setHl(was); hideTip(); });
+  map.on('click', e => { const s = pick(e.point); if (s) openSpot(s); else popup.remove(); });
+  map.on('move', hideTip);
 
   const filtered = () => !!query || opOn.size < OPS.length;
   function refresh() {
     let nb = 0, ns = 0; const seenOps = new Set();
     spots.forEach(s => {
       const l = shown(s); s.on = !!l.length;
-      if (!s.on) { s.marker.remove(); return; }
+      if (!s.on) return;
       nb += l.length; ns++; l.forEach(b => seenOps.add(b.operator));
-      s.el.style.setProperty('--c', colorOf(s));
-      s.cnt.textContent = l.length; s.cnt.style.display = l.length > 1 ? '' : 'none';
-      s.el.setAttribute('aria-label', l.length > 1 ? `${l.length} boards in ${s.boards[0].city}` : `${l[0].operator} board in ${l[0].city}`);
-      if (started) s.marker.addTo(map);
     });
     if (map.getSource('spots')) map.getSource('spots').setData(spotsGeo());
     totals = { nb, ns, no: seenOps.size };
@@ -580,7 +705,7 @@ body.present.by-ops .legend { display: block; }
     document.getElementById('bSub').textContent = `${fmt(nb)} digital billboards · ${fmt(ns)} locations`;
     document.getElementById('hint').textContent = query ? (nb ? `${fmt(nb)} board${nb === 1 ? '' : 's'} match · press Enter to fly to them` : 'No boards match') : '';
     document.getElementById('opsAll').hidden = opOn.size === OPS.length;
-    sizeBoards();
+    if (near) runNear(false);
   }
   let totals = { nb: ALL.length, ns: spots.length, no: OPS.length }, counted = false, started = false;
   function paintStats() {
@@ -603,8 +728,9 @@ body.present.by-ops .legend { display: block; }
   const PITCH = () => dim3d ? (narrow() ? 50 : 58) : 0, BEARING = () => dim3d ? -17 : 0;
   function pad() {
     if (presenting()) return narrow() ? { top: 110, bottom: 40, left: 30, right: 30 } : { top: 150, bottom: 50, left: 70, right: 80 };
-    const pn = document.getElementById('panel');
-    return narrow() ? { top: pn.offsetHeight + 60, bottom: 40, left: 30, right: 30 } : { top: 80, bottom: 60, left: pn.offsetWidth + 80, right: 90 };
+    const pn = document.getElementById('panel'), card = document.querySelector('.card:not([hidden])');
+    if (narrow()) return { top: pn.offsetHeight + 60, bottom: card ? card.offsetHeight + 40 : 40, left: 30, right: 30 };
+    return { top: 80, bottom: 60, left: (card ? card.getBoundingClientRect().right : pn.getBoundingClientRect().right) + 60, right: 90 };
   }
   function cameraFor(list) {
     const lons = list.map(b => b.lon), lats = list.map(b => b.lat);
@@ -663,7 +789,7 @@ body.present.by-ops .legend { display: block; }
     opsEl.querySelectorAll('.box').forEach(x => { if (byOps) x.style.setProperty('--c', x.dataset.c); else x.style.removeProperty('--c'); });
     legendEl.innerHTML = OPS.filter(o => opOn.has(o)).map(o => `<div><i style="background:${opColor[o]};color:${opColor[o]}"></i>${esc(o)}</div>`).join('');
   }
-  document.getElementById('colorMode').addEventListener('click', e => { const b = e.target.closest('button[data-c]'); if (!b) return; colorMode = b.dataset.c; store.set('spa3dColor', colorMode); if (selected) popup.setHTML(popupHtml(selected)); paintControls(); refresh(); });
+  document.getElementById('colorMode').addEventListener('click', e => { const b = e.target.closest('button[data-c]'); if (!b) return; colorMode = b.dataset.c; store.set('spa3dColor', colorMode); paintControls(); refresh(); if (selected) { popup.setHTML(popupHtml(selected)); paintPopupAd(); } });
   document.getElementById('mapStyle').addEventListener('click', async e => {
     const b = e.target.closest('button[data-m]'); if (!b || b.dataset.m === mapStyle) return;
     mapStyle = b.dataset.m; store.set('spa3dMap', mapStyle); paintControls();
@@ -693,6 +819,133 @@ body.present.by-ops .legend { display: block; }
   tg.addEventListener('click', () => togglePanel(panel.classList.contains('collapsed')));
   if (narrow()) togglePanel(false);
 
+  // ---------- side cards ----------
+  const cards = { ad: document.getElementById('adCard'), near: document.getElementById('nearCard') };
+  const cardBtns = { ad: document.getElementById('adBtn'), near: document.getElementById('nearBtn') };
+  function openCard(which) {
+    Object.keys(cards).forEach(k => { const on = k === which && cards[k].hidden; cards[k].hidden = !on; cardBtns[k].classList.toggle('on', on); cardBtns[k].setAttribute('aria-expanded', on); });
+    if (narrow() && which) togglePanel(false);
+    if (which === 'near' && !cards.near.hidden) setTimeout(() => document.getElementById('nearQ').focus(), 50);
+  }
+  cardBtns.ad.addEventListener('click', () => openCard('ad'));
+  cardBtns.near.addEventListener('click', () => openCard('near'));
+  document.querySelectorAll('.card [data-close]').forEach(b => b.addEventListener('click', () => openCard(null)));
+
+  // ---------- your ad ----------
+  const adDrop = document.getElementById('adDrop'), adFile = document.getElementById('adFile'), adPrev = document.getElementById('adPrev');
+  function paintAdCard() {
+    adDrop.classList.toggle('has', !!custom);
+    document.getElementById('adRemove').hidden = !custom;
+    document.getElementById('adPick').textContent = custom ? 'Choose another' : 'Choose image';
+    document.querySelectorAll('#adMode button').forEach(b => { const on = b.dataset.a === adMode; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); b.disabled = !custom; });
+    const c = adPrev.getContext('2d'); c.clearRect(0, 0, adPrev.width, adPrev.height);
+    if (custom) drawAd(c, custom.key, 0, 0, adPrev.width, adPrev.height);
+  }
+  function adsChanged() {
+    lastImg = ''; updateAds();
+    if (selected) { const c = popup.getElement() && popup.getElement().querySelector('.pp-screen canvas'); if (c) delete c.dataset.k; paintPopupAd(); }
+    paintAdCard();
+  }
+  async function useFile(file) {
+    if (!file || !/^image\//.test(file.type)) return;
+    const url = URL.createObjectURL(file);
+    try {
+      const im = await loadImg(url);
+      // keep a billboard-sized copy (at most 1400 px wide), so it can be remembered in this browser
+      const k = Math.min(1, 1400 / im.width, 800 / im.height), c = document.createElement('canvas');
+      c.width = Math.round(im.width * k); c.height = Math.round(im.height * k);
+      const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height); x.drawImage(im, 0, 0, c.width, c.height);
+      const old = custom && custom.key;
+      custom = { img: c, key: 'C' + (++customV) };
+      store.set('spa3dAd', c.toDataURL('image/jpeg', 0.9));
+      if (old) map.listImages().filter(id => id.split('|')[2] === old).forEach(id => map.removeImage(id));
+      adsChanged();
+    } catch (e) { alertCard('That file couldn’t be opened as an image.'); }
+    finally { URL.revokeObjectURL(url); }
+  }
+  function alertCard(msg) { const n = document.querySelector('#adCard .card-note'); n.textContent = msg; }
+  document.getElementById('adPick').addEventListener('click', () => adFile.click());
+  adDrop.addEventListener('click', () => adFile.click());
+  adDrop.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); adFile.click(); } });
+  adFile.addEventListener('change', () => { useFile(adFile.files[0]); adFile.value = ''; });
+  ['dragenter', 'dragover'].forEach(t => adDrop.addEventListener(t, e => { e.preventDefault(); adDrop.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach(t => adDrop.addEventListener(t, e => { e.preventDefault(); adDrop.classList.remove('over'); }));
+  adDrop.addEventListener('drop', e => useFile(e.dataTransfer.files[0]));
+  document.getElementById('adRemove').addEventListener('click', () => {
+    const old = custom && custom.key; custom = null; store.set('spa3dAd', '');
+    try { localStorage.removeItem('spa3dAd'); } catch (e) {}
+    if (old) map.listImages().filter(id => id.split('|')[2] === old).forEach(id => map.removeImage(id));
+    adsChanged();
+  });
+  document.getElementById('adMode').addEventListener('click', e => { const b = e.target.closest('button[data-a]'); if (!b || !custom) return; adMode = b.dataset.a; store.set('spa3dAdMode', adMode); adsChanged(); });
+  paintAdCard();
+
+  // ---------- boards near an address ----------
+  let near = null, nearPin = null, radiusMi = +(store.get('spa3dRadius') || 5);
+  if (![3, 5, 10].includes(radiusMi)) radiusMi = 5;
+  const toRad = d => d * Math.PI / 180;
+  const miles = (a, b) => { const dLat = toRad(b.lat - a.lat), dLon = toRad(b.lon - a.lon), h = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * Math.sin(dLon / 2) ** 2; return 7917.6 * Math.asin(Math.min(1, Math.sqrt(h))); };
+  function ring(c, mi, n = 96) {                          // a circle of the given radius, as map points
+    const d = mi / 3958.8, la = toRad(c.lat), lo = toRad(c.lon), pts = [];
+    for (let i = 0; i <= n; i++) { const b = 2 * Math.PI * i / n, lat = Math.asin(Math.sin(la) * Math.cos(d) + Math.cos(la) * Math.sin(d) * Math.cos(b));
+      pts.push([(lo + Math.atan2(Math.sin(b) * Math.sin(d) * Math.cos(la), Math.cos(d) - Math.sin(la) * Math.sin(lat))) * 180 / Math.PI, lat * 180 / Math.PI]); }
+    return pts;
+  }
+  function nearGeo() { return { type: 'FeatureCollection', features: near ? [{ type: 'Feature', properties: {}, geometry: { type: 'Polygon', coordinates: [ring(near, radiusMi)] } }] : [] }; }
+  async function geocode(q) {
+    const tries = [
+      async () => { const r = await (await fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&limit=1&countrycodes=us&viewbox=-95.8,46.6,-91.4,43.4&q=${encodeURIComponent(q)}`)).json();
+        if (!r[0]) return null; const a = r[0].address || {};
+        const parts = [r[0].name, a.road ? [a.house_number, a.road].filter(Boolean).join(' ') : '', a.city || a.town || a.village || a.hamlet].filter((x, i, l) => x && l.indexOf(x) === i);
+        return { lon: +r[0].lon, lat: +r[0].lat, label: parts.join(', ') || r[0].display_name.split(', ').slice(0, 3).join(', ') }; },
+      async () => { const r = await (await fetch(`https://photon.komoot.io/api/?limit=1&lat=45.0&lon=-93.3&q=${encodeURIComponent(q)}`)).json(); const f = r.features && r.features[0]; if (!f) return null;
+        const p = f.properties; return { lon: f.geometry.coordinates[0], lat: f.geometry.coordinates[1], label: [p.name, p.street && [p.housenumber, p.street].filter(Boolean).join(' '), p.city].filter(Boolean).join(', ') }; },
+    ];
+    for (const t of tries) { try { const r = await t(); if (r) return r; } catch (e) {} }
+    return null;
+  }
+  const nearOut = document.getElementById('nearOut');
+  function runNear(fly) {
+    if (!near) return;
+    const inside = [];
+    spots.forEach(s => { s.dist = miles(near, s); s.inNear = s.dist <= radiusMi; if (s.inNear) shown(s).forEach(b => inside.push({ b, s })); });
+    if (map.getSource('near')) map.getSource('near').setData(nearGeo());
+    applyStates();
+    const byOp = {}; inside.forEach(x => { byOp[x.b.operator] = (byOp[x.b.operator] || 0) + 1; });
+    const closest = spots.filter(s => shown(s).length).sort((a, b) => a.dist - b.dist).slice(0, 5);
+    nearOut.innerHTML = `<div class="near-sum"><b>${fmt(inside.length)}</b>board${inside.length === 1 ? '' : 's'} within ${radiusMi} miles<span class="where">of ${esc(near.label)}</span></div>` +
+      (inside.length ? '<div class="near-ops">' + Object.keys(byOp).sort((a, b) => byOp[b] - byOp[a]).map(o => `<div><i style="background:${opColor[o]};color:${opColor[o]}"></i>${esc(o)}<span>${byOp[o]}</span></div>`).join('') + '</div>' : '') +
+      '<div class="near-list"><p class="label">Closest boards</p>' + closest.map(s => { const b = shown(s)[0];
+        return `<button type="button" data-i="${s.i}"><b>${s.dist < 10 ? s.dist.toFixed(1) : Math.round(s.dist)} mi</b>${esc(b.operator)} · ${esc(b.where || b.city)}${shown(s).length > 1 ? ` (+${shown(s).length - 1})` : ''}</button>`; }).join('') + '</div>' +
+      '<div class="card-row"><button class="btn" type="button" id="nearClear">Clear</button><button class="btn" type="button" id="nearFit">Zoom to circle</button></div>';
+    if (fly) fitNear();
+  }
+  function fitNear() { if (!near) return; stopTour(); const cam = cameraFor(ring(near, radiusMi, 24).map(([lon, lat]) => ({ lon, lat }))); if (cam) map.flyTo(Object.assign(cam, { duration: 1800, essential: true })); }
+  nearOut.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    if (b.id === 'nearClear') clearNear(); else if (b.id === 'nearFit') fitNear(); else if (b.dataset.i) openSpot(spots[+b.dataset.i]);
+  });
+  function clearNear() {
+    near = null; spots.forEach(s => { s.inNear = false; });
+    if (nearPin) { nearPin.remove(); nearPin = null; }
+    if (map.getSource('near')) map.getSource('near').setData(nearGeo());
+    applyStates(); nearOut.innerHTML = ''; document.getElementById('nearQ').value = '';
+  }
+  document.getElementById('nearForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const q = document.getElementById('nearQ').value.trim(); if (!q) return;
+    nearOut.innerHTML = '<div class="hint">Looking it up…</div>';
+    const r = await geocode(q);
+    if (!r) { nearOut.innerHTML = '<div class="hint">Couldn’t find that address. Try adding the city, like “1600 University Ave, St Paul”.</div>'; return; }
+    near = r;
+    if (!nearPin) { const el = document.createElement('div'); el.className = 'near-pin'; nearPin = new maplibregl.Marker({ element: el }); }
+    nearPin.setLngLat([r.lon, r.lat]).addTo(map);
+    runNear(true);
+  });
+  function paintRadius() { document.querySelectorAll('#radius button').forEach(b => { const on = +b.dataset.r === radiusMi; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); }); }
+  document.getElementById('radius').addEventListener('click', e => { const b = e.target.closest('button[data-r]'); if (!b) return; radiusMi = +b.dataset.r; store.set('spa3dRadius', radiusMi); paintRadius(); runNear(true); });
+  paintRadius();
+
   // ---------- presenting: full screen + slow orbit ----------
   let orbiting = false;
   function startOrbit() { if (calm || !dim3d) return; orbiting = true; }
@@ -712,6 +965,7 @@ body.present.by-ops .legend { display: block; }
     if (e.key !== 'Escape') return;
     if (touring) { stopTour(); return; }
     if (popup.isOpen()) { popup.remove(); return; }
+    if (!cards.ad.hidden || !cards.near.hidden) { openCard(null); return; }
     if (presenting() && !document.fullscreenElement) setPresent(false);
   });
 
