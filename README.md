@@ -13,6 +13,14 @@ An interactive map of digital billboard locations for Saint Paul Agency presenta
 - **Map:** Streets (default) or Light, a quieter map that makes the pins stand out.
 - Saint Paul Agency branding only. The panel fits laptop screens; on phones it folds away.
 
+**3D map (preview):** https://saintpaulagency.github.io/spa-billboard-map/3d/
+
+- Opens on a turning globe and flies down into the Twin Cities on a tilted night map with 3D buildings and glowing highways.
+- Each board is a small blue billboard on a pole, playing a loop of sample ads (Your Ad Here, Saint Paul Agency, Grand Opening and so on; nothing client-specific), with a pulsing glow on the ground under it.
+- **Guided tour** flies between the busiest areas with captions; **Present** goes full screen and slowly circles the city.
+- Same views, search, company filters, colors and Street View links as the classic map, plus **3D / 2D**, **Night / Day** and **SPA blue / By company** switches.
+- It reads the same `data/boards.js`, so updating the boards updates both maps.
+
 ## Updating the boards
 
 The map reads `data/boards.js`. To load a new inventory (same layout as Basis's "Digital Billboards" export: Billboard Company, ID, Direction 1 = latitude, Direction 2 = longitude, City/State, Zip):
