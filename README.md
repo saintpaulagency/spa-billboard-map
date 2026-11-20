@@ -8,7 +8,7 @@ An interactive map of digital billboard locations for Saint Paul Agency presenta
 ## The 3D map (main link)
 
 - Opens on a turning globe and flies down into the Twin Cities on a tilted night map with 3D buildings and glowing highways. **Skip intro** jumps straight in.
-- Each board is a small billboard on a pole (14' x 48' bulletin shape) drawn by the map itself, so it stays smooth. Sample ads (Your Ad Here, Saint Paul Agency, Grand Opening and so on; nothing client-specific) hold 8 seconds each, like a real digital board, and change in staggered waves.
+- Zoomed out, every location is a bright glowing dot (with a count where several boards share a spot), so it's easy to see where they all are. Zoom in past the city view and the dots rise up into small billboards on poles (14' x 48' bulletin shape), drawn by the map itself so it stays smooth. Sample ads (Your Ad Here, Saint Paul Agency, Grand Opening and so on; nothing client-specific) hold 8 seconds each, like a real digital board, and change in staggered waves.
 - Click a board for the company, location, board ID and a one-click **Google Street View** link.
 - **Your ad:** choose an ad image (1400 x 400 fits best) to show it on every board, or mixed in with the samples. It stays in that browser; nothing is uploaded.
 - **Near address:** type an address or business; it circles 3, 5 or 10 miles, dims the boards outside, and lists the count by company and the closest boards. Address lookup uses OpenStreetMap's free geocoder.

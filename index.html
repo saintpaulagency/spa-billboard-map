@@ -165,7 +165,7 @@ body.present .card { display: none; }
 .pp-screen { position: relative; aspect-ratio: 3.5 / 1; border-radius: 8px; overflow: hidden; margin: 2px 30px 12px 0; border: 3px solid var(--c, var(--cyan)); box-shadow: 0 0 16px var(--c, var(--cyan)); background: #020A1E; }
 .pp-screen canvas { position: absolute; inset: 0; width: 100%; height: 100%; transition: opacity .35s; }
 .pp-screen.yours::after { content: "YOUR AD"; }
-.pp-screen::after { content: "SAMPLE AD"; position: absolute; right: 6px; bottom: 4px; font-size: 10px; font-weight: 800; letter-spacing: .1em; color: #fff; text-shadow: 0 1px 3px rgba(0, 0, 0, .6); }
+.pp-screen::after { content: "SAMPLE AD"; position: absolute; right: 5px; top: 5px; padding: 2px 7px; border-radius: 6px; background: rgba(2, 8, 22, .72); font-size: 9.5px; font-weight: 800; letter-spacing: .1em; color: #fff; }
 .pp-head { font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--cyan); margin: 0 0 6px; }
 .pp-list { max-height: 210px; overflow: auto; }
 .pp-board + .pp-board { border-top: 1px solid var(--edge); margin-top: 9px; padding-top: 9px; }
@@ -509,7 +509,9 @@ body.present.by-ops .legend { display: block; }
   // ---------- the ground glow and the billboards: all drawn by the map itself (on the graphics card) ----------
   const R = 3;                                              // billboard pictures are drawn 3x for sharpness
   const BW = 104, BH = 60, SX = 8, SY = 10, SW = 88, SH = 25;   // picture size and the screen inside it (3.5:1, like a 14' x 48' bulletin)
-  const SIZE_STOPS = [5.5, 0.36, 8, 0.5, 10, 0.68, 12, 0.86, 14, 1.02, 16, 1.18], HL = 1.8;
+  const RISE = [11.1, 11.6];                                // zoomed out: dots; zooming in past these levels the billboards rise up
+  const SIZE_STOPS = [11.1, 0.35, 11.6, 0.8, 12, 0.86, 14, 1.02, 16, 1.18], HL = 1.8;
+  const boardsUp = () => map.getZoom() >= RISE[0] + 0.35;
   const sizeAt = z => { const st = SIZE_STOPS; if (z <= st[0]) return st[1]; for (let i = 2; i < st.length; i += 2) if (z <= st[i]) { const t = (z - st[i - 2]) / (st[i] - st[i - 2]); return st[i - 1] + t * (st[i + 1] - st[i - 1]); } return st[st.length - 1]; };
   const sizeExpr = k => ['interpolate', ['linear'], ['zoom']].concat(SIZE_STOPS.map((v, i) => i % 2 ? +(v * k).toFixed(3) : v));
   const HOLD = 8;                                           // seconds each ad stays up, like a real digital billboard
@@ -592,11 +594,22 @@ body.present.by-ops .legend { display: block; }
     map.addLayer({ id: 'near-glow', type: 'line', source: 'near', filter: ['==', ['geometry-type'], 'Polygon'], paint: { 'line-color': '#39C6FF', 'line-width': 8, 'line-blur': 6, 'line-opacity': 0.5 } });
     map.addLayer({ id: 'near-line', type: 'line', source: 'near', filter: ['==', ['geometry-type'], 'Polygon'], paint: { 'line-color': night ? '#9BE3FF' : '#1E6FFF', 'line-width': 2.5, 'line-dasharray': [2, 1.2] } });
     map.addLayer({ id: 'spot-glow', type: 'circle', source: 'spots', paint: { 'circle-color': ['get', 'col'], 'circle-blur': 1, 'circle-pitch-alignment': 'map',
-      'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 6, 8, 10, 11, 22, 15, 60], 'circle-opacity': ['case', isOut, 0.08, night ? 0.55 : 0.35] } });
-    map.addLayer({ id: 'spot-core', type: 'circle', source: 'spots', paint: { 'circle-color': ['get', 'col'], 'circle-pitch-alignment': 'map', 'circle-opacity': ['case', isOut, 0.3, 1],
-      'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 2, 9, 3, 14, 6], 'circle-stroke-color': night ? '#fff' : '#0E1830', 'circle-stroke-width': ['interpolate', ['linear'], ['zoom'], 3, 0.5, 12, 1.5] } });
-    map.addLayer({ id: 'bb', type: 'symbol', source: 'spots', minzoom: 5.5, layout: layoutBB(1), paint: { 'icon-opacity': ['case', isHl, 0, isOut, 0.22, 1] } });
-    map.addLayer({ id: 'bb-hl', type: 'symbol', source: 'spots', minzoom: 5.5, layout: layoutBB(HL), paint: { 'icon-opacity': ['case', isHl, 1, 0] } });
+      'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 8, 8, 15, 11, 24, 15, 60], 'circle-opacity': ['case', isOut, 0.08, night ? 0.55 : 0.35] } });
+    // the location dots: round on screen, bigger where several boards share a spot (with the count), bigger again when pointed at
+    const many = ['>', ['get', 'n'], 1], r = (one, more, hl) => ['case', isHl, hl, many, more, one];
+    map.addLayer({ id: 'spot-core', type: 'circle', source: 'spots', maxzoom: RISE[1] + 0.2, paint: { 'circle-color': ['get', 'col'], 'circle-pitch-alignment': 'viewport',
+      'circle-radius': ['interpolate', ['linear'], ['zoom'], 5, r(3.5, 5.5, 7), 8, r(6, 9, 11), 10.5, r(7.5, 10.5, 13)],
+      'circle-stroke-color': night ? '#fff' : '#0E1830', 'circle-stroke-width': ['interpolate', ['linear'], ['zoom'], 5, 1, 8, 2, 10.5, 2.5],
+      'circle-opacity': ['interpolate', ['linear'], ['zoom'], RISE[0] + 0.3, ['case', isOut, 0.3, 1], RISE[1], 0],
+      'circle-stroke-opacity': ['interpolate', ['linear'], ['zoom'], RISE[0] + 0.3, ['case', isOut, 0.3, 1], RISE[1], 0] } });
+    map.addLayer({ id: 'spot-count', type: 'symbol', source: 'spots', minzoom: 7, maxzoom: RISE[1], filter: many,
+      layout: { 'text-field': ['to-string', ['get', 'n']], 'text-font': ['Noto Sans Bold'], 'text-size': ['interpolate', ['linear'], ['zoom'], 7, 9, 10.5, 12],
+        'text-allow-overlap': true, 'text-ignore-placement': true, 'text-pitch-alignment': 'viewport', 'text-rotation-alignment': 'viewport' },
+      paint: { 'text-color': '#04102A', 'text-opacity': ['interpolate', ['linear'], ['zoom'], RISE[0] + 0.3, ['case', isOut, 0.3, 1], RISE[1], 0] } });
+    map.addLayer({ id: 'bb', type: 'symbol', source: 'spots', minzoom: RISE[0], layout: layoutBB(1),
+      paint: { 'icon-opacity': ['interpolate', ['linear'], ['zoom'], RISE[0], 0, RISE[0] + 0.3, ['case', isHl, 0, isOut, 0.22, 1]] } });
+    map.addLayer({ id: 'bb-hl', type: 'symbol', source: 'spots', minzoom: RISE[0], layout: layoutBB(HL),
+      paint: { 'icon-opacity': ['interpolate', ['linear'], ['zoom'], RISE[0], 0, RISE[0] + 0.3, ['case', isHl, 1, 0]] } });
     map.setLayoutProperty('building-3d', 'visibility', dim3d ? 'visible' : 'none');
     if (quality === 0 && map.getLayer('motorway-glow')) map.setLayoutProperty('motorway-glow', 'visibility', 'none');
     lastImg = '';
@@ -625,7 +638,7 @@ body.present.by-ops .legend { display: block; }
 
   const popup = new maplibregl.Popup({ maxWidth: '380px', focusAfterOpen: false, closeOnClick: false });
   let selected = null, hoverId = null;
-  const popupOffset = () => [0, -Math.round(BH * sizeAt(map.getZoom()) * HL * 0.92 + 4)];
+  const popupOffset = () => boardsUp() ? [0, -Math.round(BH * sizeAt(map.getZoom()) * HL * 0.92 + 4)] : [0, -16];
   popup.on('close', () => { const s = selected; selected = null; if (s) setHl(s.i); });
   function setHl(id) { if (id == null || !map.getSource('spots')) return; map.setFeatureState({ source: 'spots', id }, { hl: id === hoverId || (selected && selected.i === id) }); }
   function applyStates() {
@@ -670,7 +683,7 @@ body.present.by-ops .legend { display: block; }
   function hideTip() { tip.classList.remove('on'); }
   function pick(pt) {
     if (!map.getLayer('bb')) return null;
-    const f = map.queryRenderedFeatures(pt, { layers: ['bb'] })[0];
+    const f = map.queryRenderedFeatures(pt, { layers: boardsUp() ? ['bb'] : ['spot-core'] })[0];
     if (f) return spots[f.id];
     if (hoverId != null) { const h = map.queryRenderedFeatures(pt, { layers: ['bb-hl'] }).find(x => x.id === hoverId); if (h) return spots[h.id]; }
     if (selected) { const h = map.queryRenderedFeatures(pt, { layers: ['bb-hl'] }).find(x => x.id === selected.i); if (h) return spots[h.id]; }
